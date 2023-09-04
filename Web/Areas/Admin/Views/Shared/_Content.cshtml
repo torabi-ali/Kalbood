@@ -1,0 +1,34 @@
+﻿@model ContentViewModel
+
+<div class="form-group">
+    <label asp-for="Title" class="control-label"></label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Url" class="control-label"></label>
+    <input asp-for="Url" class="form-control" />
+    <span asp-validation-for="Url" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Text" class="control-label"></label>
+    <textarea asp-for="Text" class="ckeditor"></textarea>
+    <span asp-validation-for="Text" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <div class="col-6">
+        <label name="Image" class="control-label"></label>
+        <input name="Image" type="file" />
+        <span name="Image" class="text-danger"></span>
+    </div>
+    <div class="col-6">
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <input asp-for="ImageUrl" type="hidden" />
+            <img src="@Model.ImageUrl" height="150" />
+        }
+    </div>
+</div>

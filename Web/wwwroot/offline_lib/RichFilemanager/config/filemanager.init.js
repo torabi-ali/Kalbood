@@ -1,0 +1,3 @@
+$('.fm-container').richFilemanager({
+    baseUrl: '.'
+});

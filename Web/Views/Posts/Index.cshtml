@@ -1,0 +1,22 @@
+﻿@using App.ViewModels.Posts;
+
+@model IPagedList<PostListDto>
+
+@{
+    ViewData["Title"] = "پست‌ها";
+}
+
+<section class="container py-5">
+    <div class="container py-md-3">
+        <div class="row">
+            @foreach (var item in Model.Data)
+            {
+                @await Html.PartialAsync("_Post", item)
+            }
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    @await Html.PartialAsync("_Pagination", Model)
+</div>

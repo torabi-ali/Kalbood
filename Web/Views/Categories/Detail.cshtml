@@ -1,0 +1,53 @@
+﻿@using App.ViewModels.Categories;
+
+@model CategoryDetailDto
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.Summary;
+    ViewData["Image"] = Model.ImageUrl;
+}
+
+@section StructuredData{
+    <script type="application/ld+json">
+        {
+            "@@context": "http://schema.org",
+            "@@type": "Article",
+                "headline": "@Model.Title",
+                "image": [ "@Model.ImageUrl" ],
+                "datePublished": "@Model.CreatedOn",
+                "author": [{
+                    "@@type": "Organization",
+                    "name":"@settings.Title",
+                    "alternateName": "@settings.Name"
+                  }]
+        }
+    </script>
+}
+
+<div class="container mt-5 pt-5">
+    <article>
+        <div class="row">
+            <div class="col-md-12">
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="responsive article-image" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>@Model.Title</h2>
+
+                @Html.Raw(@Model.Text)
+            </div>
+        </div>
+    </article>
+
+    <hr class="py-3" />
+
+    <h3 class="block-title text-center pt-4 mt-2">پست‌های مرتبط</h3>
+    <div class="row">
+        @foreach (var post in Model.Posts)
+        {
+            @await Html.PartialAsync("_Post", post)
+        }
+    </div>
+</div>

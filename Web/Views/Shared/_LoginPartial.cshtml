@@ -1,0 +1,18 @@
+﻿@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div class="list-inline mb-0">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="navbar-link" asp-area="Identity" asp-page="/Account/Manage/Index" aria-label="سلام"><i class="fe-icon-user"></i>&nbsp;سلام @User.Identity.Name!</a>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="navbar-link" asp-area="Admin" asp-controller="Home" asp-action="Index" aria-label="پنل ادمین">&nbsp; پنل ادمین</a>
+        }
+    }
+    else
+    {
+        <a class="navbar-link" asp-area="Identity" asp-page="/Account/Login" aria-label="ورود"><i class="fe-icon-user"></i>&nbsp;ورود</a>
+    }
+</div>

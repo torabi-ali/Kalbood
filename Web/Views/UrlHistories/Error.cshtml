@@ -1,0 +1,15 @@
+﻿@using App.ViewModels.Urls;
+
+@model ErrorDto
+
+@{
+    ViewData["Title"] = "خطا";
+}
+
+<section class="container py-5">
+
+    <h3>@ViewData["Title"]</h3>
+
+    <p>@Model.Message</p>
+
+</section>

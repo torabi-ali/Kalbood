@@ -1,0 +1,53 @@
+﻿@using App.ViewModels.Home;
+
+@model HomePageDto
+
+@{
+    ViewData["Title"] = "کالبود ⚡ معمارانه می‌بینیم، می‌شنویم و احساس می‌کنیم";
+}
+
+<section class="container">
+    <h2 class="h4 block-title text-center pt-4 mt-2">دید کالبود</h2>
+    <div class="row pt-4">
+        <div class="col-ms-12">
+            <ul class="kalbood">
+                <li><span class="li-title">انسان</span> <span class="li-description">انسان فاعلی دارای فکر و انتخاب می‌باشد و از این جهت اثر گذار بر گستره خلقت است.</span> </li>
+                <li><span class="li-title">جهان هستی</span> <span class="li-description">جهان هستی بستر و اتمسفری برای استفاده، سکنی گزیدن و زندگی این فاعل است.</span></li>
+                <li><span class="li-title">معماری</span> <span class="li-description">معماری علمی بین فاعل و بستر می‌باشد و از عوامل کلیدی اتصال این دو به یکدیگر است.</span></li>
+                <li><span class="li-title">نتیجه</span> <span class="li-description">تعادل رابطه فاعل و بستر - انسان و طبیعت - سالم‌ترین حالت زندگی است و معماری می‌تواند در ایجاد این تعادل اثر گذار باشد.</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <h2 class="h4 block-title text-center pt-4 mt-2">جدیدترین پست‌ها</h2>
+    <div class="row pt-3">
+        @foreach (var post in Model.NewPosts)
+        {
+            @await Html.PartialAsync("_Post", post)
+        }
+    </div>
+</section>
+
+<section class="bg-secondary mt-5 pt-5">
+    <h2 class="h4 block-title text-center pt-4 mt-2">دسته‌بندی‌های محبوب</h2>
+    <div class="container py-md-3">
+        <div class="row">
+            @foreach (var category in Model.PinnedCategories)
+            {
+                @await Html.PartialAsync("_Category", category)
+            }
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <h2 class="h4 block-title text-center pt-4 mt-2">انتخاب سر دبیر</h2>
+    <div class="row py-md-3">
+        @foreach (var post in Model.PinnedPosts)
+        {
+            @await Html.PartialAsync("_Post", post)
+        }
+    </div>
+</section>

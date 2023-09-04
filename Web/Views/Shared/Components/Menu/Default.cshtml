@@ -1,0 +1,128 @@
+﻿@using App.ViewModels.Menus;
+
+@model IList<MenuListDto>
+
+<!-- Off-Canvas Menu-->
+<div class="offcanvas-container is-triggered offcanvas-container-reverse" id="mobile-menu">
+    <span class="offcanvas-close"><i class="fe-icon-x"></i></span>
+    <div class="px-4 pb-4">
+        <div class="d-flex justify-content-between pt-2">
+            <a class="btn btn-primary btn-sm btn-block" asp-area="Identity" asp-page="/Account/Login" aria-label="ورود"><i class="fe-icon-user"></i>&nbsp;ورود</a>
+        </div>
+    </div>
+    <div class="offcanvas-scrollable-area border-top" style="height:calc(100% - 235px); top: 144px;">
+        <!-- Mobile Menu-->
+        <div class="accordion mobile-menu" id="accordion-menu">
+            <div class="card">
+                <div class="card-header"><a class="mobile-menu-link active" asp-area="" asp-controller="Home" asp-action="Index" aria-label="صفحه اصلی">صفحه اصلی</a></div>
+            </div>
+
+            @{
+                var counter = 1;
+            }
+            @foreach (var menu in Model)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <a class="mobile-menu-link" href="@menu.Url">@menu.Title</a>
+
+                        @if (Model.Any(p => p.ParentId == menu.Id))
+                        {
+                            <a class="collapsed" href="#submenu-@counter" data-toggle="collapse" aria-label="زیر منوها"></a>
+
+                            <div class="collapse" id="submenu-@counter" data-parent="#accordion-menu">
+                                <div class="card-body">
+                                    <ul>
+                                        @foreach (var subMenu in menu.SubMenus)
+                                        {
+                                            <li class="dropdown-item">
+                                                <a href="@subMenu.Url" aria-label="@subMenu.Title">@subMenu.Title</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                {
+                    counter++;
+                }
+            }
+        </div>
+    </div>
+    <div class="offcanvas-footer px-4 pt-3 pb-2 text-center">
+        <a class="social-btn sb-style-3 sb-telegram" target="_blank" href="@settings.Telegram" aria-label="تلگرام"><i class="socicon-telegram"></i></a>
+        <a class="social-btn sb-style-3 sb-whatsapp" target="_blank" href="@settings.Whatsapp" aria-label="واتساپ"><i class="socicon-whatsapp"></i></a>
+        <a class="social-btn sb-style-3 sb-instagram" target="_blank" href="@settings.Instagram" aria-label="اینستاگرام"><i class="socicon-instagram"></i></a>
+    </div>
+</div>
+
+<header class="navbar-wrapper navbar-sticky">
+    <div class="d-table-cell align-middle pl-md-3">
+        <h1>
+            <a class="navbar-brand ml-1" asp-area="" asp-controller="Home" asp-action="Index" aria-label="@settings.Title"><img src="/image/kalbood-logo-128x128.png" alt="@settings.Title" /></a>
+        </h1>
+    </div>
+    <div class="d-table-cell w-100 align-middle pl-md-3">
+        <div class="navbar-top d-none d-lg-flex justify-content-between align-items-center">
+            <div>
+                <a class="navbar-link ml-3" href="#" aria-label="تلفن">
+                    <i class="fe-icon-phone"></i>@settings.Phone
+                </a>
+                <a class="navbar-link ml-3" href="mailto:@settings.Email" aria-label="ایمیل">
+                    <i class="fe-icon-mail"></i>@settings.Email
+                </a>
+                <a class="social-btn sb-style-3 sb-telegram" target="_blank" href="@settings.Telegram" aria-label="تلگرام"><i class="socicon-telegram"></i></a>
+                <a class="social-btn sb-style-3 sb-whatsapp" target="_blank" href="@settings.Whatsapp" aria-label="واتساپ"><i class="socicon-whatsapp"></i></a>
+                <a class="social-btn sb-style-3 sb-instagram" target="_blank" href="@settings.Instagram" aria-label="اینستاگرام"><i class="socicon-instagram"></i></a>
+            </div>
+
+            <partial name="_LoginPartial" />
+        </div>
+        <div class="navbar justify-content-end justify-content-lg-between">
+            <!-- Search-->
+            <form class="search-box" method="get">
+                <input type="text" id="site-search" placeholder="جستجو کنید.دنبال چی هستید؟"><span class="search-close"><i class="fe-icon-x"></i></span>
+            </form>
+            <!-- Main Menu-->
+            <ul class="navbar-nav d-none d-lg-block">
+                <li class="nav-item mega-dropdown-toggle active">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" aria-label="صفحه اصلی">صفحه اصلی</a>
+                </li>
+
+                @foreach (var menu in Model)
+                {
+                    <li class="nav-item dropdown-toggle">
+                        <a class="nav-link" href="@menu.Url" aria-label="@menu.Title">@menu.Title</a>
+
+                        @if (Model.Any(p => p.ParentId == menu.Id))
+                        {
+                            <ul class="dropdown-menu">
+                                @foreach (var subMenu in menu.SubMenus)
+                                {
+                                    <li class="dropdown-item">
+                                        <a href="@subMenu.Url" aria-label="@subMenu.Title">@subMenu.Title</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+
+                    </li>
+                }
+
+            </ul>
+            <div>
+                <ul class="navbar-buttons d-inline-block align-middle mr-lg-2">
+                    <li class="d-block d-lg-none">
+                        <a href="#mobile-menu" data-toggle="offcanvas" aria-label="منو"><i class="fe-icon-menu"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="search" aria-label="جستجو"><i class="fe-icon-search"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

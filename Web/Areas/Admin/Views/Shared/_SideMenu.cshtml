@@ -1,0 +1,126 @@
+﻿@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a asp-area="" asp-controller="Home" class="brand-link">
+        <img src="/image/kalbood-logo-128x128.png" alt="@settings.Title" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">@settings.Title</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="#" class="d-block">@User.Identity.Name!</a>
+            </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Home")" class="nav-link active">
+                        <i class="nav-icon far fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon"></i>
+                        <p>
+                            Contents
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Posts")" class="nav-link">
+                                <i class="far fa-file nav-icon"></i>
+                                <p>Posts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Categories")" class="nav-link">
+                                <i class="far fa-folder nav-icon"></i>
+                                <p>Category</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Faqs")" class="nav-link">
+                                <i class="far fa-folder nav-icon"></i>
+                                <p>FAQ</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon"></i>
+                        <p>
+                            Users
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Users")" class="nav-link">
+                                <i class="fas fa-user-alt nav-icon"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Users", new { roleName = "Admin" })" class="nav-link">
+                                <i class="fas fa-user-cog nav-icon"></i>
+                                <p>Admin Users</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon"></i>
+                        <p>
+                            Settings
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "Menus")" class="nav-link">
+                                <i class="far fa-folder nav-icon"></i>
+                                <p>Menu</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index", "UrlHistories")" class="nav-link">
+                                <i class="far fa-folder nav-icon"></i>
+                                <p>Url History</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

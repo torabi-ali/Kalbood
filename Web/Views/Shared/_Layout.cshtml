@@ -1,0 +1,131 @@
+﻿@using System.Reflection;
+
+@inject IWebHostEnvironment webHostEnvironment;
+
+@{
+    var pageTitle = ViewData["Title"] + " | " + settings.Title;
+    var pageDescription = ViewData["Description"] ?? settings.Description;
+    var pageImage = ViewData["Image"] ?? settings.Logo;
+
+    var version = Assembly.GetEntryAssembly().GetName().Version;
+}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@pageTitle</title>
+
+    <meta name="description" content="@pageDescription">
+    <meta name="keywords" content="کالبود,استودیو,استودیو کالبود,معماری,سینما,کودک,اینستاگرام,ورکشاپ,ورکشاپ معماری,">
+    <meta name="author" content="@settings.Author">
+
+    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:site_name" content="@settings.Title" />
+    <meta property="og:title" content="@pageTitle" />
+    <meta property="og:image" content="@pageImage" />
+    <meta property="og:description" content="@pageDescription" />
+
+    <meta name="twitter:site" content="@settings.Title">
+    <meta name="twitter:creator" content="@settings.Name">
+    <meta name="twitter:title" content="@pageTitle">
+    <meta name="twitter:description" content="@pageDescription">
+    <meta name="twitter:image" content="@pageImage">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="/dist/site.min.css?version=@version">
+
+    <script type="application/ld+json">
+        {
+            "@@context": "http://schema.org",
+            "@@type": "Organization",
+            "name":"@settings.Title",
+            "alternateName": "@settings.Name",
+            "url": "@settings.Url",
+            "logo":"@settings.Logo",
+            "image":"@settings.Logo",
+            "email": "@settings.Email",
+            "sameAs" : [ "@settings.Instagram" ]
+        }
+    </script>
+
+    @await RenderSectionAsync("StructuredData", required: false)
+
+    @if (webHostEnvironment.IsProduction())
+    {
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=@(settings.GoogleTagManagerId)"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', '@(settings.GoogleTagManagerId)');
+        </script>
+    }
+
+</head>
+<body>
+    <div class="wrapper">
+
+        @await Component.InvokeAsync("Menu")
+
+        <!-- Page Content-->
+        @RenderBody()
+
+        @await Component.InvokeAsync("Faq")
+
+        <!-- Footer-->
+        <footer class="bg-dark pt-5">
+            <div class="container pt-2">
+                <div class="row">
+                    <div class="col-lg-3 pb-4 mb-2 text-center text-lg-right">
+                        <a class="navbar-brand d-inline-block mb-4 text-white" asp-area="" asp-controller="Home" asp-action="Index" aria-label="@settings.Title">@settings.Title</a>
+                        <p class="text-sm text-white opacity-50 pb-2">@settings.Description</p>
+                        <a class="social-btn sb-style-6 sb-telegram sb-light-skin" target="_blank" href="@settings.Telegram" aria-label="تلگرام"><i class="socicon-telegram"></i></a>
+                        <a class="social-btn sb-style-6 sb-whatsapp sb-light-skin" target="_blank" href="@settings.Whatsapp" aria-label="واتساپ"><i class="socicon-whatsapp"></i></a>
+                        <a class="social-btn sb-style-6 sb-instagram sb-light-skin" target="_blank" href="@settings.Instagram" aria-label="اینستاگرام"><i class="socicon-instagram"></i></a>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-xl-6 col-md-7"><img class="d-block" src="/image/homepages/corporate-blog/youtube-channel.jpg" alt="instagram Channel"></div>
+                            <div class="col-xl-4 col-md-5 text-center text-md-right">
+                                <a class="video-player-button my-3 ml-3" href="@settings.Instagram" aria-label="اینستاگرام"><i class="fe-icon-play"></i></a><span class="video-player-label text-muted">برای رفتن به کانال کلیک کن</span>
+                                <h5 class="h3 mt-2">ما را در Instagram دنبال کنید</h5>
+                                <p class="text-muted d-none d-lg-block">در اینستاگرام ما را دنبال کنید</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Subscription-->
+            <div class="pt-5" style="background-color: #30363d;">
+                <div class="container">
+                    <div class="d-md-flex justify-content-between align-items-center py-4 text-center text-md-left">
+                        <div class="order-2"><a class="footer-link text-white" href="/posts/کالبود-چیست/" aria-label="درباره ما">درباره ما</a></div>
+                        <p class="m-0 text-sm text-white order-1"><span class='opacity-60'>همه حقوق محفوظ است.©</span> <span>نسخه @version</span></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- Back To Top Button-->
+    <a class="scroll-to-top-btn" href="#" aria-label="برو به بالا"><i class="fe-icon-chevron-up"></i></a>
+    <!-- Backdrop-->
+    <div class="site-backdrop"></div>
+
+    <script type="text/javascript" src="/dist/site.min.js?version=@version"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

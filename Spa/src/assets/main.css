@@ -1,0 +1,87 @@
+:root {
+    --primary: #ac32e4;
+    --secondary: #f5f5f5;
+    --success: #33cb81;
+    --info: #5695fe;
+    --warning: #fc8c3a;
+    --danger: #ff5252;
+    --light: #fff;
+    --dark: #343b43;
+    --accent: #e833b0;
+}
+
+body {
+    font-family: 'Vazirmatn RD FD';
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.5;
+    direction: rtl !important;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+h1::after,
+h2::after,
+h3::after {
+    display: block;
+    position: relative;
+    bottom: 0;
+    right: 45%;
+    width: 10%;
+    height: 3px;
+    box-shadow: none;
+    content: '';
+    background: linear-gradient(to right, var(--primary) 0%, var(--primary) 20%, var(--accent) 100%) !important;
+}
+
+a:hover,
+a i:hover {
+    color: var(--primary) !important;
+}
+
+.post-card a,
+.category-card a {
+    text-decoration: none;
+    color: var(--dark-color);
+}
+
+.post-card img,
+.category-card img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    height: 300px;
+}
+
+.post-card h5,
+.category-card h5 {
+    font-size: 1.125rem;
+    line-height: 2rem;
+}
+
+.post-card h5::after,
+.category-card h5::after {
+    display: block;
+    position: relative;
+    bottom: 0;
+    width: 10%;
+    height: 2px;
+    box-shadow: none;
+    content: '';
+    background: linear-gradient(to right, var(--primary) 0%, var(--primary) 20%, var(--accent) 100%) !important;
+}
+
+.post-card p,
+.category-card p {
+    text-align: justify;
+    overflow: hidden;
+}
+
+.post-card .card-text,
+.post-card .card-text {
+    min-height: 70px;
+}
+
+.bg-secondary {
+    background-color: var(--secondary) !important;
+}

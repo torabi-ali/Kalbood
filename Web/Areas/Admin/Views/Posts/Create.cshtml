@@ -1,0 +1,83 @@
+﻿@using App.ViewModels.Posts;
+
+@model PostCreateDto
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">@ViewData["Title"]</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form asp-action="Create" enctype="multipart/form-data">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <partial name="_Content" />
+
+                                    <div class="form-group">
+                                        <label asp-for="IsPublished" class="control-label"></label>
+                                        <input asp-for="IsPublished" class="form-control" />
+                                        <span asp-validation-for="IsPublished" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="IsPin" class="control-label"></label>
+                                        <input asp-for="IsPin" class="form-control" />
+                                        <span asp-validation-for="IsPin" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="SelectedCategories" class="control-label"></label>
+                                        <select class="form-control select2" multiple="multiple" asp-for="SelectedCategories" asp-items="@(new SelectList(Model.Categories, "Value", "Text"))">
+                                            <option value="-1">--Select--</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script type="text/javascript" src="/offline_lib/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/offline_lib/ckeditor/config.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "Select categories",
+                allowClear: true
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.config.height = 500;
+            CKEDITOR.config.width = 'auto';
+
+            for (item in CKEDITOR.instances) {
+                CKEDITOR.instances[item].destroy();
+            };
+
+            $(".ckeditor").each(function (index, item) {
+                var roxyFileman = "/offline_lib/RichFilemanager/index.html";
+                var id = $(item).attr("id");
+
+                CKEDITOR.replace(id, { filebrowserBrowseUrl: roxyFileman });
+            });
+        });
+    </script>
+}

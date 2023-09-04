@@ -1,0 +1,20 @@
+﻿@using App.ViewModels.Categories;
+
+@model CategoryListDto
+
+<div class="col-lg-4 col-md-6 order-md-2 pb-5">
+    <div class="mb-30">
+        <div class="card blog-card mb-2">
+            <a class="post-thumb" href="@Url.Action("Detail", "Categories", new { url = Model.Url })" aria-label="@Model.Title">
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="responsive" loading="lazy" />
+            </a>
+            <div class="card-body">
+                <h5 class="post-title"><a href="@Url.Action("Detail", "Categories", new { url = Model.Url })">@Model.Title</a></h5>
+                <p class="text-muted">@Model.Summary</p>
+            </div>
+            <div class="card-footer">
+                <div class="post-meta"><a href="#posts" aria-label="پست‌ها"><i class="fe-icon-message-square"></i>@Model.PostCount نوشته</a></div>
+            </div>
+        </div>
+    </div>
+</div>

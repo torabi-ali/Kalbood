@@ -1,0 +1,96 @@
+﻿@using App.ViewModels.Menus;
+
+@model IPagedList<MenuListDto>
+
+@{
+    ViewData["Title"] = "Menus";
+
+    MenuListDto displayModel = null;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">@ViewData["Title"]</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="table_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dt-buttons btn-group flex-wrap">
+                                        <a href="@Url.Action("Create")" class="btn btn-primary buttons-copy buttons-html5" tabindex="0" aria-controls="table">New <i class="fas fa-plus"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div id="table_filter" class="dataTables_filter">
+                                        <label>
+                                            Search:<input type="search" disabled="disabled" class="form-control form-control-sm" placeholder="" aria-controls="table">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped dataTable dtr-inline"
+                                           role="grid" aria-describedby="table_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting sorting_asc" tabindex="0">
+                                                    @Html.DisplayNameFor(p => displayModel.Id)
+                                                </th>
+                                                <th class="sorting" tabindex="0">
+                                                    @Html.DisplayNameFor(p => displayModel.Title)
+                                                </th>
+                                                <th class="sorting" tabindex="0">
+                                                    @Html.DisplayNameFor(p => displayModel.Url)
+                                                </th>
+                                                <th class="sorting" tabindex="0">
+                                                    @Html.DisplayNameFor(p => displayModel.ParentTitle)
+                                                </th>
+                                                <th class="sorting" tabindex="0">
+                                                    @Html.DisplayNameFor(p => displayModel.CreatedOn)
+                                                </th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.Data)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(p => item.Id)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(p => item.Title)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(p => item.Url)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(p => item.ParentTitle)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(p => item.CreatedOn)
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("Edit", new { id = item.Id})" class="btn btn-secondary btn-grid-action"> <i class="fas fa-pencil-alt"></i> </a>
+                                                        <a href="@Url.Action("Delete", new { id = item.Id})" class="btn btn-secondary btn-grid-action"> <i class="fas fa-trash-alt"></i> </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            @await Html.PartialAsync("_Pagination", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

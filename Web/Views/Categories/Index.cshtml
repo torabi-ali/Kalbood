@@ -1,0 +1,25 @@
+﻿@using App.ViewModels.Categories;
+
+@model IPagedList<CategoryListDto>
+
+<div class="row">
+    @foreach (var item in Model.Data)
+    {
+        <div class="col-md-4">
+            <div class="card post-card">
+                <div class="card-body">
+                    <h2>@item.Title</h2>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row">
+                        <div class="col-md-6 float-left">
+                            <a href="@Url.Action("Detail", new { url = @item.Url })" class="btn btn-primary" aria-label="پست‌ها">پست‌ها</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@await Html.PartialAsync("_Pagination", Model)

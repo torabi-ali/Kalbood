@@ -1,0 +1,29 @@
+﻿@using App.ViewModels.Faqs;
+
+@model IList<FaqDetailDto>
+
+@if (Model.Any())
+{
+    <section class="bg-secondary mt-5 pt-5 pb-3">
+        <h2 class="h4 block-title text-center pt-3 mt-3 mb-3">سؤالات متداول</h2>
+        <div class="container py-md-3">
+            @foreach (var faq in Model)
+            {
+                <div class="row pt-2 pb-2">
+                    <div class="col-md-12">
+                        <article class="faq" itemscope="" itemprop="mainEntity" itemtype="https://schema.org/Question">
+                            <p class="question" itemprop="name">
+                                @faq.Question
+                            </p>
+                            <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                                <p class="answer" itemprop="text">
+                                    @faq.Answer
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+}
