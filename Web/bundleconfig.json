@@ -39,7 +39,6 @@
     {
         "outputFileName": "wwwroot/dist/admin.min.css",
         "inputFiles": [
-            "wwwroot/adminTheme/plugins/fontawesome-free/css/all.min.css",
             "wwwroot/adminTheme/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
             "wwwroot/adminTheme/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
             "wwwroot/adminTheme/dist/css/adminlte.min.css",
@@ -81,7 +80,7 @@
     {
         "outputFileName": "wwwroot/dist/jquery.validate.js",
         "inputFiles": [
-            "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+            "wwwroot/lib/jquery-validate/jquery.validate.js",
             "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
         ],
         "minify": {

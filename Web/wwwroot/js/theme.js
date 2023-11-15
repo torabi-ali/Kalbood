@@ -5,7 +5,7 @@
         e = document,
         t = {
             init: function () {
-                t.disableEmptyLink(), t.stickyNavbar(), t.isotopeGrid(), t.isotopeFilter(), t.searchToggle(), t.offcanvas(), t.fsOverlay(), t.scrollTo(), t.scrollBackTop(), t.formValidation(), t.tooltips(), t.popovers(), t.creditCard(), t.filterList('[data-filter="#components-list"]', ".list-group-item"), t.filterList('[data-filter="#components-grid"]', ".card-title"), t.productGallery(), t.linkedCarousels(), t.toasts(), t.teamHover(), t.countDown(), t.animateProgress(), t.animateDigits(), t.rangeSlider(), t.parallax(), t.pricingSwitch(), t.googleMap()
+                t.disableEmptyLink(), t.stickyNavbar(), t.isotopeGrid(), t.isotopeFilter(), t.searchToggle(), t.offcanvas(), t.fsOverlay(), t.scrollTo(), t.scrollBackTop(), t.formValidation(), t.tooltips(), t.popovers(), t.creditCard(), t.filterList('[data-filter="#components-list"]', ".list-group-item"), t.filterList('[data-filter="#components-grid"]', ".card-title"), t.productGallery(), t.linkedCarousels(), t.toasts(), t.teamHover(), t.countDown(), t.animateProgress(), t.animateDigits(), t.rangeSlider()/*, t.parallax(), t.pricingSwitch(), t.googleMap()*/
             },
             disableEmptyLink: function (t) {
                 l('a[href="#"]').on("click", function (t) {
@@ -346,49 +346,6 @@
                     }), a[0].noUiSlider.on("update", function (t, a) {
                         var e = t[a];
                         a ? (i.valueMax.text(Math.round(e)), i.valueMaxInput.val(Math.round(e))) : (i.valueMin.text(Math.round(e)), i.valueMinInput.val(Math.round(e)))
-                    })
-                })
-            },
-            parallax: function () {
-                ParallaxScroll.init()
-            },
-            pricingSwitch: function (n) {
-                l((n = ".pricing-tabs") + "> li > a").on("click", function (t) {
-                    var a = l(this),
-                        e = a.data("period"),
-                        i = a.parents(".pricing-plans");
-                    i.find(n + "> li > a").removeClass("active"), a.addClass("active"), i.find(".pricing-card-price").removeClass("active"), i.find("." + e).addClass("active"), t.preventDefault
-                })
-            },
-            googleMap: function (t) {
-                l(t = ".google-map").length && l(t).each(function () {
-                    var t = l(this).data("height"),
-                        a = l(this).data("address"),
-                        e = l(this).data("zoom"),
-                        i = l(this).data("disable-controls"),
-                        n = l(this).data("scrollwheel"),
-                        o = l(this).data("marker"),
-                        s = l(this).data("marker-title"),
-                        r = l(this).data("styles");
-                    l(this).height(t), l(this).gmap3({
-                        address: a,
-                        zoom: e,
-                        disableDefaultUI: i,
-                        scrollwheel: n,
-                        styles: r
-                    }).marker({
-                        address: a,
-                        icon: o
-                    }).infowindow({
-                        content: s
-                    }).then(function (t) {
-                        var a = this.get(0),
-                            e = this.get(1);
-                        e.addListener("mouseover", function () {
-                            t.open(a, e)
-                        }), e.addListener("mouseout", function () {
-                            t.close(a, e)
-                        })
                     })
                 })
             }
