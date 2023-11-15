@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
@@ -18,8 +18,8 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.12" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.12" PrivateAssets="all" TreatAsUsed="true" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" PrivateAssets="all" TreatAsUsed="true" />
     </ItemGroup>
 
     <ItemGroup>
