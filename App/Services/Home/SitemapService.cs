@@ -36,7 +36,7 @@ public class SitemapService(IPostService postService, ICategoryService categoryS
         var element =
             new XElement(xNamespace + "url",
             new XElement(xNamespace + "loc", new Uri($"{applicationSettings.Url}{objectUrl}")),
-            new XElement(xNamespace + "lastmod", lastModified.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz")),
+            new XElement(xNamespace + "lastmod", lastModified.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz", CultureInfo.CurrentCulture)),
             new XElement(xNamespace + "changefreq", frequency.ToString().ToLowerInvariant()),
             new XElement(xNamespace + "priority", priority.ToString("F2", CultureInfo.InvariantCulture)));
 

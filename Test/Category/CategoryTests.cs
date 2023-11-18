@@ -1,4 +1,4 @@
-﻿using App.Services.Categories;
+using App.Services.Categories;
 using App.ViewModels.Categories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Common;
@@ -9,7 +9,7 @@ namespace Test.Category;
 public class CategoryTests
 {
     [TestMethod]
-    public async Task Insert_Category_ReturnsId()
+    public async Task InsertCategoryReturnsId()
     {
         var mapper = CommonTestObjects.GetMapper();
         var dbContext = CommonTestObjects.GetDbContext();
@@ -22,7 +22,7 @@ public class CategoryTests
     }
 
     [TestMethod]
-    public async Task Update_Category_ReturnsId()
+    public async Task UpdateCategoryReturnsId()
     {
         var mapper = CommonTestObjects.GetMapper();
         var dbContext = CommonTestObjects.GetDbContext();

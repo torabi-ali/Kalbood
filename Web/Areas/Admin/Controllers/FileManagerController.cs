@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Web.Areas.Admin.Controllers.Common;
@@ -33,22 +33,22 @@ public class FileManagerController : BaseAdminController
                 return null;
             }
 
-            if (!string.IsNullOrWhiteSpace(path) && path.StartsWith("/"))
+            if (!string.IsNullOrWhiteSpace(path) && path.StartsWith('/'))
             {
                 path = path[1..];
             }
 
-            if (!string.IsNullOrWhiteSpace(@new) && @new.StartsWith("/"))
+            if (!string.IsNullOrWhiteSpace(@new) && @new.StartsWith('/'))
             {
                 @new = @new == "/" ? string.Empty : @new[1..];
             }
 
-            if (!string.IsNullOrWhiteSpace(source) && source.StartsWith("/"))
+            if (!string.IsNullOrWhiteSpace(source) && source.StartsWith('/'))
             {
                 source = source[1..];
             }
 
-            if (!string.IsNullOrWhiteSpace(target) && target.StartsWith("/"))
+            if (!string.IsNullOrWhiteSpace(target) && target.StartsWith('/'))
             {
                 target = target[1..];
             }
@@ -810,7 +810,7 @@ public class FileManagerController : BaseAdminController
             Inline = true,
             FileName = fileName
         };
-        Response.Headers.Add("Content-Disposition", cd.ToString());
+        Response.Headers.ContentDisposition = cd.ToString();
 
         return File(fileBytes, "application/octet-stream");
     }
@@ -826,7 +826,7 @@ public class FileManagerController : BaseAdminController
             Inline = true,
             FileName = fileName
         };
-        Response.Headers.Add("Content-Disposition", cd.ToString());
+        Response.Headers.ContentDisposition = cd.ToString();
 
         return File(fileBytes, "image/*");
     }
