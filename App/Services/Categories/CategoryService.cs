@@ -1,4 +1,4 @@
-﻿using App.ViewModels.Categories;
+using App.ViewModels.Categories;
 using App.ViewModels.Common;
 using App.ViewModels.Home;
 using AutoMapper;
@@ -11,30 +11,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Services.Categories;
 
-public class CategoryService : ICategoryService
+public class CategoryService(KalboodDbContext dbContext, IMapper mapper) : ICategoryService
 {
-    private readonly KalboodDbContext _dbContext;
-    private readonly IMapper _mapper;
-
-    public CategoryService(KalboodDbContext dbContext, IMapper mapper)
-    {
-        _dbContext = dbContext;
-        _mapper = mapper;
-    }
-
     public Task<CategoryDetailDto> GetByIdAsync(int id)
     {
-        return _dbContext.Set<Category>().Where(p => p.Id == id).ProjectTo<CategoryDetailDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        return dbContext.Set<Category>().Where(p => p.Id == id).ProjectTo<CategoryDetailDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
 
     public Task<CategoryDetailDto> GetByUrlAsync(string url)
     {
-        return _dbContext.Set<Category>().Where(p => p.Url.Equals(url)).ProjectTo<CategoryDetailDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        return dbContext.Set<Category>().Where(p => p.Url.Equals(url, StringComparison.Ordinal)).ProjectTo<CategoryDetailDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
 
     public Task<IPagedList<CategoryListDto>> GetAllPagedAsync(int pageIndex, int pageSize, bool onlyPinned = false)
     {
-        var query = _dbContext.Set<Category>().AsQueryable();
+        var query = dbContext.Set<Category>().AsQueryable();
 
         if (onlyPinned)
         {
@@ -45,55 +36,49 @@ public class CategoryService : ICategoryService
             query = query.OrderByDescending(p => p.CreatedOn);
         }
 
-        return query.ProjectTo<CategoryListDto>(_mapper.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
+        return query.ProjectTo<CategoryListDto>(mapper.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
     }
 
     public Task<List<SitemapNode>> GetSitemapNodeAsync()
     {
-        return _dbContext.Set<Category>()
-                 .ProjectTo<SitemapNode>(_mapper.ConfigurationProvider)
+        return dbContext.Set<Category>()
+                 .ProjectTo<SitemapNode>(mapper.ConfigurationProvider)
                  .ToListAsync();
     }
 
     public async Task<int> InsertAsync(CategoryCreateDto input)
     {
-        if (input == null)
-        {
-            throw new ArgumentNullException(nameof(input));
-        }
+        ArgumentNullException.ThrowIfNull(input);
 
-        var entity = _mapper.Map<Category>(input);
-        _dbContext.Set<Category>().Add(entity);
+        var entity = mapper.Map<Category>(input);
+        dbContext.Set<Category>().Add(entity);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
         return entity.Id;
     }
 
     public async Task<int> UpdateAsync(int id, CategoryEditDto input)
     {
-        if (input == null)
-        {
-            throw new ArgumentNullException(nameof(input));
-        }
+        ArgumentNullException.ThrowIfNull(input);
 
-        var entity = await _dbContext.Set<Category>().Where(p => p.Id == id).SingleOrDefaultAsync();
-        entity = _mapper.Map(input, entity);
-        _dbContext.Set<Category>().Update(entity);
+        var entity = await dbContext.Set<Category>().Where(p => p.Id == id).SingleOrDefaultAsync();
+        entity = mapper.Map(input, entity);
+        dbContext.Set<Category>().Update(entity);
 
-        return await _dbContext.SaveChangesAsync();
+        return await dbContext.SaveChangesAsync();
     }
 
     public Task<int> DeleteAsync(int id)
     {
         var entity = new Category { Id = id };
-        _dbContext.Set<Category>().Remove(entity);
+        dbContext.Set<Category>().Remove(entity);
 
-        return _dbContext.SaveChangesAsync();
+        return dbContext.SaveChangesAsync();
     }
 
     public async Task<CategoryCreateDto> PrepareModelAsync()
     {
-        var parentCategories = await _dbContext.Set<Category>().ProjectTo<SelectViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+        var parentCategories = await dbContext.Set<Category>().ProjectTo<SelectViewModel>(mapper.ConfigurationProvider).ToListAsync();
 
         return new CategoryCreateDto
         {
@@ -103,8 +88,8 @@ public class CategoryService : ICategoryService
 
     public async Task<CategoryEditDto> PrepareModelAsync(int id)
     {
-        var parentCategories = await _dbContext.Set<Category>().ProjectTo<SelectViewModel>(_mapper.ConfigurationProvider).ToListAsync();
-        var result = await _dbContext.Set<Category>().Where(p => p.Id == id).ProjectTo<CategoryEditDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        var parentCategories = await dbContext.Set<Category>().ProjectTo<SelectViewModel>(mapper.ConfigurationProvider).ToListAsync();
+        var result = await dbContext.Set<Category>().Where(p => p.Id == id).ProjectTo<CategoryEditDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
         result.ParentCategories = parentCategories;
 
         return result;

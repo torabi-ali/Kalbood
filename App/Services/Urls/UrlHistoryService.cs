@@ -1,4 +1,4 @@
-﻿using App.ViewModels.Urls;
+using App.ViewModels.Urls;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Data;
@@ -9,75 +9,60 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Services.Urls;
 
-public class UrlHistoryService : IUrlHistoryService
+public class UrlHistoryService(KalboodDbContext dbContext, IMapper mapper) : IUrlHistoryService
 {
-    private readonly KalboodDbContext _dbContext;
-    private readonly IMapper _mapper;
-
-    public UrlHistoryService(KalboodDbContext dbContext, IMapper mapper)
-    {
-        _dbContext = dbContext;
-        _mapper = mapper;
-    }
-
     public Task<UrlHistoryDetailDto> GetByIdAsync(int id)
     {
-        return _dbContext.Set<UrlHistory>().Where(p => p.Id == id).ProjectTo<UrlHistoryDetailDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        return dbContext.Set<UrlHistory>().Where(p => p.Id == id).ProjectTo<UrlHistoryDetailDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
 
     public Task<UrlHistoryDetailDto> GetByUrlAsync(string url)
     {
-        return _dbContext.Set<UrlHistory>()
-            .Where(p => p.OldUrl.Equals(url))
-            .ProjectTo<UrlHistoryDetailDto>(_mapper.ConfigurationProvider)
+        return dbContext.Set<UrlHistory>()
+            .Where(p => p.OldUrl.Equals(url, StringComparison.Ordinal))
+            .ProjectTo<UrlHistoryDetailDto>(mapper.ConfigurationProvider)
             .SingleOrDefaultAsync();
     }
 
     public Task<IPagedList<UrlHistoryListDto>> GetAllPagedAsync(int pageIndex, int pageSize)
     {
-        var query = _dbContext.Set<UrlHistory>().OrderByDescending(p => p.CreatedOn);
+        var query = dbContext.Set<UrlHistory>().OrderByDescending(p => p.CreatedOn);
 
-        return query.ProjectTo<UrlHistoryListDto>(_mapper.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
+        return query.ProjectTo<UrlHistoryListDto>(mapper.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
     }
 
     public async Task<int> InsertAsync(UrlHistoryCreateDto input)
     {
-        if (input == null)
-        {
-            throw new ArgumentNullException(nameof(input));
-        }
+        ArgumentNullException.ThrowIfNull(input);
 
-        var entity = _mapper.Map<UrlHistory>(input);
-        _dbContext.Set<UrlHistory>().Add(entity);
+        var entity = mapper.Map<UrlHistory>(input);
+        dbContext.Set<UrlHistory>().Add(entity);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
         return entity.Id;
     }
 
     public async Task<int> UpdateAsync(int id, UrlHistoryEditDto input)
     {
-        if (input == null)
-        {
-            throw new ArgumentNullException(nameof(input));
-        }
+        ArgumentNullException.ThrowIfNull(input);
 
-        var entity = await _dbContext.Set<UrlHistory>().Where(p => p.Id == id).SingleOrDefaultAsync();
-        entity = _mapper.Map(input, entity);
-        _dbContext.Set<UrlHistory>().Update(entity);
+        var entity = await dbContext.Set<UrlHistory>().Where(p => p.Id == id).SingleOrDefaultAsync();
+        entity = mapper.Map(input, entity);
+        dbContext.Set<UrlHistory>().Update(entity);
 
-        return await _dbContext.SaveChangesAsync();
+        return await dbContext.SaveChangesAsync();
     }
 
     public Task<int> DeleteAsync(int id)
     {
         var entity = new UrlHistory { Id = id };
-        _dbContext.Set<UrlHistory>().Remove(entity);
+        dbContext.Set<UrlHistory>().Remove(entity);
 
-        return _dbContext.SaveChangesAsync();
+        return dbContext.SaveChangesAsync();
     }
 
     public Task<UrlHistoryEditDto> PrepareModelAsync(int id)
     {
-        return _dbContext.Set<UrlHistory>().Where(p => p.Id == id).ProjectTo<UrlHistoryEditDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        return dbContext.Set<UrlHistory>().Where(p => p.Id == id).ProjectTo<UrlHistoryEditDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
 }

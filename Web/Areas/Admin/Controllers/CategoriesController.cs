@@ -1,4 +1,4 @@
-﻿using App.Services.Categories;
+using App.Services.Categories;
 using App.ViewModels.Categories;
 using Microsoft.AspNetCore.Mvc;
 using Web.Areas.Admin.Controllers.Common;
@@ -6,24 +6,17 @@ using Web.Extensions;
 
 namespace Web.Areas.Admin.Controllers;
 
-public class CategoriesController : BaseAdminController
+public class CategoriesController(ICategoryService categoryService) : BaseAdminController
 {
-    private readonly ICategoryService _categoryService;
-
-    public CategoriesController(ICategoryService categoryService)
-    {
-        _categoryService = categoryService;
-    }
-
     public async Task<IActionResult> Index(int pageIndex = 0, int pageSize = 20)
     {
-        var data = await _categoryService.GetAllPagedAsync(pageIndex, pageSize);
+        var data = await categoryService.GetAllPagedAsync(pageIndex, pageSize);
         return View(data);
     }
 
     public async Task<IActionResult> Create()
     {
-        var model = await _categoryService.PrepareModelAsync();
+        var model = await categoryService.PrepareModelAsync();
         return View(model);
     }
 
@@ -40,17 +33,17 @@ public class CategoriesController : BaseAdminController
         {
             categoryAction.ImageUrl = await image.UploadFileAsync("categories", categoryAction.Title);
 
-            await _categoryService.InsertAsync(categoryAction);
+            await categoryService.InsertAsync(categoryAction);
             return RedirectToAction(nameof(Index));
         }
 
-        var model = await _categoryService.PrepareModelAsync();
+        var model = await categoryService.PrepareModelAsync();
         return View(model);
     }
 
     public async Task<ActionResult> Edit(int id)
     {
-        var model = await _categoryService.PrepareModelAsync(id);
+        var model = await categoryService.PrepareModelAsync(id);
         return View(model);
     }
 
@@ -70,17 +63,17 @@ public class CategoriesController : BaseAdminController
                 categoryAction.ImageUrl = await image.UploadFileAsync("categories", categoryAction.Title);
             }
 
-            await _categoryService.UpdateAsync(id, categoryAction);
+            await categoryService.UpdateAsync(id, categoryAction);
             return RedirectToAction(nameof(Index));
         }
 
-        var model = await _categoryService.PrepareModelAsync(id);
+        var model = await categoryService.PrepareModelAsync(id);
         return View(model);
     }
 
     public async Task<ActionResult> Delete(int id)
     {
-        await _categoryService.DeleteAsync(id);
+        await categoryService.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
     }
 }

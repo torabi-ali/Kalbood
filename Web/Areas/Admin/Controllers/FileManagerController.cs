@@ -20,7 +20,7 @@ public class FileManagerController : BaseAdminController
             env.WebRootPath = Directory.GetCurrentDirectory();
         }
         _webRootPath = Path.Combine(env.WebRootPath, _webPath);
-        _allowedExtensions = new List<string> { "jpg", "jpe", "jpeg", "gif", "png", "svg", "txt", "pdf", "odp", "ods", "odt", "rtf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "csv", "ogv", "avi", "mkv", "mp4", "webm", "m4v", "ogg", "mp3", "wav", "zip", "rar", "md" };
+        _allowedExtensions = ["jpg", "jpe", "jpeg", "gif", "png", "svg", "txt", "pdf", "odp", "ods", "odt", "rtf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "csv", "ogv", "avi", "mkv", "mp4", "webm", "m4v", "ogg", "mp3", "wav", "zip", "rar", "md"];
 
     }
 
@@ -125,7 +125,7 @@ public class FileManagerController : BaseAdminController
         if (path == null)
         {
             path = string.Empty;
-        };
+        }
 
         var searchPath = Path.Combine(_webRootPath, path);
         var data = new List<dynamic>();

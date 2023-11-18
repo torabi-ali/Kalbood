@@ -17,7 +17,7 @@ public static class FileExtension
 
         if (!AllowedExtentions.Contains(Path.GetExtension(file.FileName).ToLower()))
         {
-            throw new Exception("File extentions is not allowed.");
+            throw new ArgumentException("File extentions is not allowed.");
         }
 
         var directory = Path.Combine("wwwroot", "uploads", baseUploadPath);

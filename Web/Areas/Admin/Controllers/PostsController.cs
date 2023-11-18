@@ -1,4 +1,4 @@
-﻿using App.Services.Posts;
+using App.Services.Posts;
 using App.ViewModels.Posts;
 using Microsoft.AspNetCore.Mvc;
 using Web.Areas.Admin.Controllers.Common;
@@ -6,24 +6,17 @@ using Web.Extensions;
 
 namespace Web.Areas.Admin.Controllers;
 
-public class PostsController : BaseAdminController
+public class PostsController(IPostService postService) : BaseAdminController
 {
-    private readonly IPostService _postService;
-
-    public PostsController(IPostService postService)
-    {
-        _postService = postService;
-    }
-
     public async Task<IActionResult> Index(int pageIndex = 0, int pageSize = 20)
     {
-        var data = await _postService.GetAllPagedAsync(pageIndex, pageSize);
+        var data = await postService.GetAllPagedAsync(pageIndex, pageSize);
         return View(data);
     }
 
     public async Task<IActionResult> Create()
     {
-        var model = await _postService.PrepareModelAsync();
+        var model = await postService.PrepareModelAsync();
         return View(model);
     }
 
@@ -40,17 +33,17 @@ public class PostsController : BaseAdminController
         {
             postAction.ImageUrl = await image.UploadFileAsync("posts", postAction.Title);
 
-            await _postService.InsertAsync(postAction);
+            await postService.InsertAsync(postAction);
             return RedirectToAction(nameof(Index));
         }
 
-        var model = await _postService.PrepareModelAsync();
+        var model = await postService.PrepareModelAsync();
         return View(model);
     }
 
     public async Task<ActionResult> Edit(int id)
     {
-        var model = await _postService.PrepareModelAsync(id);
+        var model = await postService.PrepareModelAsync(id);
         return View(model);
     }
 
@@ -70,17 +63,17 @@ public class PostsController : BaseAdminController
                 postAction.ImageUrl = await image.UploadFileAsync("posts", postAction.Title);
             }
 
-            await _postService.UpdateAsync(id, postAction);
+            await postService.UpdateAsync(id, postAction);
             return RedirectToAction(nameof(Index));
         }
 
-        var model = await _postService.PrepareModelAsync(id);
+        var model = await postService.PrepareModelAsync(id);
         return View(model);
     }
 
     public async Task<ActionResult> Delete(int id)
     {
-        await _postService.DeleteAsync(id);
+        await postService.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
     }
 }

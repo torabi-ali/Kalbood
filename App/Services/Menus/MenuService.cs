@@ -1,4 +1,4 @@
-﻿using App.ViewModels.Common;
+using App.ViewModels.Common;
 using App.ViewModels.Menus;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -10,68 +10,53 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Services.Menus;
 
-public class MenuService : IMenuService
+public class MenuService(KalboodDbContext dbContext, IMapper mapper) : IMenuService
 {
-    private readonly KalboodDbContext _dbContext;
-    private readonly IMapper _mapper;
-
-    public MenuService(KalboodDbContext dbContext, IMapper mapper)
-    {
-        _dbContext = dbContext;
-        _mapper = mapper;
-    }
-
     public Task<MenuDetailDto> GetByIdAsync(int id)
     {
-        return _dbContext.Set<Menu>().Where(p => p.Id == id).ProjectTo<MenuDetailDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        return dbContext.Set<Menu>().Where(p => p.Id == id).ProjectTo<MenuDetailDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
 
     public Task<IPagedList<MenuListDto>> GetAllPagedAsync(int pageIndex, int pageSize)
     {
-        var query = _dbContext.Set<Menu>().Where(p => p.ParentId == null).OrderBy(p => p.DisplayOrder).ThenByDescending(p => p.CreatedOn);
+        var query = dbContext.Set<Menu>().Where(p => p.ParentId == null).OrderBy(p => p.DisplayOrder).ThenByDescending(p => p.CreatedOn);
 
-        return query.ProjectTo<MenuListDto>(_mapper.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
+        return query.ProjectTo<MenuListDto>(mapper.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
     }
 
     public async Task<int> InsertAsync(MenuCreateDto input)
     {
-        if (input == null)
-        {
-            throw new ArgumentNullException(nameof(input));
-        }
+        ArgumentNullException.ThrowIfNull(input);
 
-        var entity = _mapper.Map<Menu>(input);
-        _dbContext.Set<Menu>().Add(entity);
+        var entity = mapper.Map<Menu>(input);
+        dbContext.Set<Menu>().Add(entity);
 
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
         return entity.Id;
     }
 
     public async Task<int> UpdateAsync(int id, MenuEditDto input)
     {
-        if (input == null)
-        {
-            throw new ArgumentNullException(nameof(input));
-        }
+        ArgumentNullException.ThrowIfNull(input);
 
-        var entity = await _dbContext.Set<Menu>().Where(p => p.Id == id).SingleOrDefaultAsync();
-        entity = _mapper.Map(input, entity);
-        _dbContext.Set<Menu>().Update(entity);
+        var entity = await dbContext.Set<Menu>().Where(p => p.Id == id).SingleOrDefaultAsync();
+        entity = mapper.Map(input, entity);
+        dbContext.Set<Menu>().Update(entity);
 
-        return await _dbContext.SaveChangesAsync();
+        return await dbContext.SaveChangesAsync();
     }
 
     public Task<int> DeleteAsync(int id)
     {
         var entity = new Menu { Id = id };
-        _dbContext.Set<Menu>().Remove(entity);
+        dbContext.Set<Menu>().Remove(entity);
 
-        return _dbContext.SaveChangesAsync();
+        return dbContext.SaveChangesAsync();
     }
 
     public async Task<MenuCreateDto> PrepareModelAsync()
     {
-        var parentMenus = await _dbContext.Set<Menu>().ProjectTo<SelectViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+        var parentMenus = await dbContext.Set<Menu>().ProjectTo<SelectViewModel>(mapper.ConfigurationProvider).ToListAsync();
 
         return new MenuCreateDto
         {
@@ -81,8 +66,8 @@ public class MenuService : IMenuService
 
     public async Task<MenuEditDto> PrepareModelAsync(int id)
     {
-        var parentMenus = await _dbContext.Set<Menu>().ProjectTo<SelectViewModel>(_mapper.ConfigurationProvider).ToListAsync();
-        var result = await _dbContext.Set<Menu>().Where(p => p.Id == id).ProjectTo<MenuEditDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        var parentMenus = await dbContext.Set<Menu>().ProjectTo<SelectViewModel>(mapper.ConfigurationProvider).ToListAsync();
+        var result = await dbContext.Set<Menu>().Where(p => p.Id == id).ProjectTo<MenuEditDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
         result.ParentMenus = parentMenus;
 
         return result;

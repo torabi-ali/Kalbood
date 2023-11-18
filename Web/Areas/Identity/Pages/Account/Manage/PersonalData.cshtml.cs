@@ -1,31 +1,19 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Web.Areas.Identity.Pages.Account.Manage
+namespace Web.Areas.Identity.Pages.Account.Manage;
+
+public class PersonalDataModel(UserManager<IdentityUser> userManager) : PageModel
 {
-    public class PersonalDataModel : PageModel
+    public async Task<IActionResult> OnGet()
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ILogger<PersonalDataModel> _logger;
-
-        public PersonalDataModel(
-            UserManager<IdentityUser> userManager,
-            ILogger<PersonalDataModel> logger)
+        var user = await userManager.GetUserAsync(User);
+        if (user == null)
         {
-            _userManager = userManager;
-            _logger = logger;
+            return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
         }
 
-        public async Task<IActionResult> OnGet()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-            return Page();
-        }
+        return Page();
     }
 }

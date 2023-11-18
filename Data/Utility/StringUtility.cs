@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace Data.Utility;
 
@@ -194,7 +194,7 @@ public static class StringUtility
             .Replace("&raquo;", "»")
             .Replace("&laquo;", "«");
 
-        return trimedInput; ;
+        return trimedInput;
     }
 
     public static string Summary(string input, int lenght = 160)

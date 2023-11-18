@@ -1,4 +1,4 @@
-﻿using Data.Domain.Common;
+using Data.Domain.Common;
 using Data.Extensions;
 using Data.Utility;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
@@ -8,19 +8,16 @@ using System.Reflection;
 
 namespace Data.DbContext;
 
-public class KalboodDbContext : IdentityDbContext, IDataProtectionKeyContext
+public class KalboodDbContext(DbContextOptions<KalboodDbContext> options) : IdentityDbContext(options), IDataProtectionKeyContext
 {
-    public KalboodDbContext(DbContextOptions<KalboodDbContext> options) : base(options)
-    { }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(builder);
 
         var entitiesAssembly = typeof(IBaseEntity).Assembly;
 
-        modelBuilder.RegisterAllEntities(entitiesAssembly);
-        modelBuilder.RegisterEntityTypeConfiguration(entitiesAssembly);
+        builder.RegisterAllEntities(entitiesAssembly);
+        builder.RegisterEntityTypeConfiguration(entitiesAssembly);
     }
 
     #region DbSet
@@ -35,7 +32,7 @@ public class KalboodDbContext : IdentityDbContext, IDataProtectionKeyContext
     public override int SaveChanges()
     {
         var entities = ChangeTracker.Entries()
-            .Where(p => p.State == EntityState.Added || p.State == EntityState.Modified)
+            .Where(p => p.State is EntityState.Added or EntityState.Modified)
             .Select(p => p.Entity)
             .ToArray();
 
@@ -50,7 +47,7 @@ public class KalboodDbContext : IdentityDbContext, IDataProtectionKeyContext
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var entities = ChangeTracker.Entries()
-            .Where(p => p.State == EntityState.Added || p.State == EntityState.Modified)
+            .Where(p => p.State is EntityState.Added or EntityState.Modified)
             .Select(p => p.Entity)
             .ToArray();
 

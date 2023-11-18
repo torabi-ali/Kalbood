@@ -1,25 +1,18 @@
-﻿using App.Services.Urls;
+using App.Services.Urls;
 using App.ViewModels.Urls;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 
 namespace Web.Controllers;
 
-public class UrlHistoriesController : Controller
+public class UrlHistoriesController(IUrlHistoryService urlHistoryService) : Controller
 {
-    private readonly IUrlHistoryService _urlHistoryService;
-
-    public UrlHistoriesController(IUrlHistoryService urlHistoryService)
-    {
-        _urlHistoryService = urlHistoryService;
-    }
-
     [Route("/{*url}", Order = 999)]
     [OutputCache(NoStore = true)]
     public async Task<IActionResult> CatchAll(string url)
     {
         var trimmedUrl = $"/{url.ToLower().TrimStart('/')}";
-        var urlHistory = await _urlHistoryService.GetByUrlAsync(trimmedUrl);
+        var urlHistory = await urlHistoryService.GetByUrlAsync(trimmedUrl);
 
         if (urlHistory is null)
         {
@@ -37,7 +30,7 @@ public class UrlHistoriesController : Controller
             302 => new RedirectResult(urlHistory.NewUrl, permanent: true, preserveMethod: false),
             307 => new RedirectResult(urlHistory.NewUrl, permanent: false, preserveMethod: true),
             308 => new RedirectResult(urlHistory.NewUrl, permanent: true, preserveMethod: true),
-            _ => throw new Exception("Error while redirecting"),
+            _ => throw new ArgumentException("Error while redirecting"),
         };
     }
 

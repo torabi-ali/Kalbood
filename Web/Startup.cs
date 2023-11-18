@@ -1,4 +1,4 @@
-﻿using App.Infrastructure.Startup;
+using App.Infrastructure.Startup;
 using Data.DbContext;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http.Features;
@@ -11,14 +11,9 @@ using System.Text.Unicode;
 
 namespace Web;
 
-public class Startup
+public class Startup(IConfiguration configuration)
 {
-    public IConfiguration Configuration { get; }
-
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+    public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {

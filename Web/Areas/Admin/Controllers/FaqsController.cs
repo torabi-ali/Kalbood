@@ -1,22 +1,15 @@
-﻿using App.Services.Faqs;
+using App.Services.Faqs;
 using App.ViewModels.Faqs;
 using Microsoft.AspNetCore.Mvc;
 using Web.Areas.Admin.Controllers.Common;
 
 namespace Web.Areas.Admin.Controllers;
 
-public class FaqsController : BaseAdminController
+public class FaqsController(IFaqService faqService) : BaseAdminController
 {
-    private readonly IFaqService _faqService;
-
-    public FaqsController(IFaqService faqService)
-    {
-        _faqService = faqService;
-    }
-
     public async Task<IActionResult> Index(int pageIndex = 0, int pageSize = 20)
     {
-        var data = await _faqService.GetAllPagedAsync(pageIndex, pageSize);
+        var data = await faqService.GetAllPagedAsync(pageIndex, pageSize);
         return View(data);
     }
 
@@ -32,7 +25,7 @@ public class FaqsController : BaseAdminController
     {
         if (ModelState.IsValid)
         {
-            await _faqService.InsertAsync(faqAction);
+            await faqService.InsertAsync(faqAction);
             return RedirectToAction(nameof(Index));
         }
 
@@ -41,7 +34,7 @@ public class FaqsController : BaseAdminController
 
     public async Task<ActionResult> Edit(int id)
     {
-        var model = await _faqService.PrepareModelAsync(id);
+        var model = await faqService.PrepareModelAsync(id);
         return View(model);
     }
 
@@ -51,17 +44,17 @@ public class FaqsController : BaseAdminController
     {
         if (ModelState.IsValid)
         {
-            await _faqService.UpdateAsync(id, faqAction);
+            await faqService.UpdateAsync(id, faqAction);
             return RedirectToAction(nameof(Index));
         }
 
-        var model = await _faqService.PrepareModelAsync(id);
+        var model = await faqService.PrepareModelAsync(id);
         return View(model);
     }
 
     public async Task<ActionResult> Delete(int id)
     {
-        await _faqService.DeleteAsync(id);
+        await faqService.DeleteAsync(id);
         return RedirectToAction(nameof(Index));
     }
 }

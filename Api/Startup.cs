@@ -1,22 +1,17 @@
-﻿using App.Infrastructure.Startup;
+using System.Reflection;
+using App.Infrastructure.Startup;
 using Data.DbContext;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using System.Reflection;
 
 namespace Api;
 
-public class Startup
+public class Startup(IConfiguration configuration)
 {
-    public IConfiguration Configuration { get; }
-
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+    public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -42,17 +37,9 @@ public class Startup
             options.AddPolicy("ExpireIn300s", builder => builder.Expire(TimeSpan.FromSeconds(300)));
         });
 
-        services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kalbood", Version = $"v{Assembly.GetEntryAssembly().GetName().Version}" });
-        });
+        services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kalbood", Version = $"v{Assembly.GetEntryAssembly().GetName().Version}" }));
 
-        services.AddCors(opt => opt.AddDefaultPolicy(p =>
-        {
-            p.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-        }));
+        services.AddCors(opt => opt.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -77,9 +64,6 @@ public class Startup
 
         app.UseOutputCache();
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
+        app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

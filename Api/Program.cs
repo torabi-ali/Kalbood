@@ -1,4 +1,4 @@
-﻿namespace Api;
+namespace Api;
 
 public class Program
 {
@@ -9,6 +9,6 @@ public class Program
 
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
-        return Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        return Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
     }
 }
