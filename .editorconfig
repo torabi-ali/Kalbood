@@ -70,8 +70,10 @@ indent_style = tab
 
 [*.{cs,csx,cake,vb,vbx}]
 # Default Severity for all .NET Code Style rules below
-dotnet_analyzer_diagnostic.severity = warning
 end_of_line = crlf
+dotnet_analyzer_diagnostic.severity = warning
+dotnet_diagnostic.CA1310.severity = suggestion
+dotnet_diagnostic.CA1848.severity = suggestion
 
 ##########################################
 # Language Rules
