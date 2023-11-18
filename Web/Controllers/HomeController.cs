@@ -1,24 +1,15 @@
-﻿using App.Services.Home;
+using App.Services.Home;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 
 namespace Web.Controllers;
 
-public class HomeController : Controller
+public class HomeController(IHomePageService homeService, ISitemapService sitemapService) : Controller
 {
-    private readonly IHomePageService _homeService;
-    private readonly ISitemapService _sitemapService;
-
-    public HomeController(IHomePageService homeService, ISitemapService sitemapService)
-    {
-        _homeService = homeService;
-        _sitemapService = sitemapService;
-    }
-
     [OutputCache(PolicyName = "ExpireIn3000s")]
     public async Task<IActionResult> Index()
     {
-        var model = await _homeService.PrepareHomeModelAsync();
+        var model = await homeService.PrepareHomeModelAsync();
         return View(model);
     }
 
@@ -26,7 +17,7 @@ public class HomeController : Controller
     [Route("sitemap.xml")]
     public async Task<IActionResult> Sitemap()
     {
-        var result = await _sitemapService.PrepareSitemapModelAsync();
+        var result = await sitemapService.PrepareSitemapModelAsync();
 
         return new ContentResult
         {

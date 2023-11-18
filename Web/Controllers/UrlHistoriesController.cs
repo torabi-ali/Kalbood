@@ -40,9 +40,9 @@ public class UrlHistoriesController(IUrlHistoryService urlHistoryService) : Cont
     {
         var message = code switch
         {
-            int n when 400 > n && n >= 300 => "خطا در انتقال شما به صفحه جدید رخ داده است",
-            int n when 500 > n && n >= 400 => "صفحه مورد نظر شما یافت نشد",
-            int n when 600 > n && n >= 500 => "خطا فنی رخ داده است",
+            int n when n is < 400 and >= 300 => "خطا در انتقال شما به صفحه جدید رخ داده است",
+            int n when n is < 500 and >= 400 => "صفحه مورد نظر شما یافت نشد",
+            int n when n is < 600 and >= 500 => "خطا فنی رخ داده است",
             _ => "خطایی در سیستم رخ داده است",
         };
 

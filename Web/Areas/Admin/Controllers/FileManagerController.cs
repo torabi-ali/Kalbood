@@ -7,20 +7,20 @@ namespace Web.Areas.Admin.Controllers;
 
 public class FileManagerController : BaseAdminController
 {
-    private readonly string _webRootPath;
-    private readonly string _webPath;
-    private readonly List<string> _allowedExtensions;
+    private readonly string webRootPath;
+    private readonly string webPath;
+    private readonly List<string> allowedExtensions;
 
     public FileManagerController(IWebHostEnvironment env)
     {
         // FileManager Content Folder
-        _webPath = "uploads";
+        webPath = "uploads";
         if (string.IsNullOrWhiteSpace(env.WebRootPath))
         {
             env.WebRootPath = Directory.GetCurrentDirectory();
         }
-        _webRootPath = Path.Combine(env.WebRootPath, _webPath);
-        _allowedExtensions = ["jpg", "jpe", "jpeg", "gif", "png", "svg", "txt", "pdf", "odp", "ods", "odt", "rtf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "csv", "ogv", "avi", "mkv", "mp4", "webm", "m4v", "ogg", "mp3", "wav", "zip", "rar", "md"];
+        webRootPath = Path.Combine(env.WebRootPath, webPath);
+        allowedExtensions = ["jpg", "jpe", "jpeg", "gif", "png", "svg", "txt", "pdf", "odp", "ods", "odt", "rtf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "csv", "ogv", "avi", "mkv", "mp4", "webm", "m4v", "ogg", "mp3", "wav", "zip", "rar", "md"];
 
     }
 
@@ -103,7 +103,7 @@ public class FileManagerController : BaseAdminController
                             {
                                 IgnoreCase = true,
                                 Policy = "ALLOW_LIST",
-                                Restrictions = _allowedExtensions
+                                Restrictions = allowedExtensions
                             }
                         }
                     }
@@ -122,24 +122,21 @@ public class FileManagerController : BaseAdminController
 
     private dynamic SeekFolder(string path, string search)
     {
-        if (path == null)
-        {
-            path = string.Empty;
-        }
+        path ??= string.Empty;
 
-        var searchPath = Path.Combine(_webRootPath, path);
+        var searchPath = Path.Combine(webRootPath, path);
         var data = new List<dynamic>();
 
         foreach (var file in new DirectoryInfo(searchPath).GetFiles("*" + search + "*", SearchOption.AllDirectories).OrderByDescending(p => p.LastWriteTime))
         {
             var item = new
             {
-                Id = MakeWebPath(Path.Combine(Path.GetRelativePath(_webRootPath, file.DirectoryName), file.Name), true),
+                Id = MakeWebPath(Path.Combine(Path.GetRelativePath(webRootPath, file.DirectoryName), file.Name), true),
                 Type = "file",
                 Attributes = new
                 {
                     file.Name,
-                    Path = MakeWebPath(Path.Combine(Path.GetRelativePath(_webRootPath, file.DirectoryName), file.Name), true),
+                    Path = MakeWebPath(Path.Combine(Path.GetRelativePath(webRootPath, file.DirectoryName), file.Name), true),
                     Readable = 1,
                     Writable = 1,
                     Created = GetUnixTimestamp(file.CreationTimeUtc),
@@ -157,7 +154,7 @@ public class FileManagerController : BaseAdminController
 
             var item = new
             {
-                Id = MakeWebPath(Path.GetRelativePath(_webRootPath, dir.FullName), false, true),
+                Id = MakeWebPath(Path.GetRelativePath(webRootPath, dir.FullName), false, true),
                 Type = "folder",
                 Attributes = new
                 {
@@ -180,8 +177,7 @@ public class FileManagerController : BaseAdminController
 
     private dynamic GetInfo(string path)
     {
-        if (path == null)
-        { path = string.Empty; };
+        path ??= string.Empty;;
 
         FileInfo file = new(path);
 
@@ -189,12 +185,12 @@ public class FileManagerController : BaseAdminController
         {
             Data = new
             {
-                Id = MakeWebPath(Path.Combine(Path.GetRelativePath(_webRootPath, file.DirectoryName), file.Name), true),
+                Id = MakeWebPath(Path.Combine(Path.GetRelativePath(webRootPath, file.DirectoryName), file.Name), true),
                 Type = "file",
                 Attributes = new
                 {
                     file.Name,
-                    Path = MakeWebPath(Path.Combine(Path.GetRelativePath(_webRootPath, file.DirectoryName), file.Name), false),
+                    Path = MakeWebPath(Path.Combine(Path.GetRelativePath(webRootPath, file.DirectoryName), file.Name), false),
                     Readable = 1,
                     Writable = 1,
                     Created = GetUnixTimestamp(file.CreationTimeUtc),
@@ -209,12 +205,9 @@ public class FileManagerController : BaseAdminController
 
     private dynamic ReadFolder(string path)
     {
-        if (path == null)
-        {
-            path = string.Empty;
-        }
+        path ??= string.Empty;
 
-        var rootpath = Path.Combine(_webRootPath, path);
+        var rootpath = Path.Combine(webRootPath, path);
 
         var rootDirectory = new DirectoryInfo(rootpath);
         var data = new List<dynamic>();
@@ -228,7 +221,7 @@ public class FileManagerController : BaseAdminController
                 Attributes = new
                 {
                     directory.Name,
-                    Path = MakeWebPath(Path.Combine(_webPath, path, directory.Name), true, true),
+                    Path = MakeWebPath(Path.Combine(webPath, path, directory.Name), true, true),
                     Readable = 1,
                     Writable = 1,
                     Created = GetUnixTimestamp(directory.CreationTime),
@@ -249,7 +242,7 @@ public class FileManagerController : BaseAdminController
                 Attributes = new
                 {
                     file.Name,
-                    Path = MakeWebPath(Path.Combine(_webPath, path, file.Name), true),
+                    Path = MakeWebPath(Path.Combine(webPath, path, file.Name), true),
                     Readable = 1,
                     Writable = 1,
                     Created = GetUnixTimestamp(file.CreationTime),
@@ -273,7 +266,7 @@ public class FileManagerController : BaseAdminController
 
     private dynamic AddFolder(string path, string name)
     {
-        var newDirectoryPath = Path.Combine(_webRootPath, path, name);
+        var newDirectoryPath = Path.Combine(webRootPath, path, name);
 
         var directoryExist = Directory.Exists(newDirectoryPath);
 
@@ -310,7 +303,7 @@ public class FileManagerController : BaseAdminController
                     Attributes = new
                     {
                         directory.Name,
-                        Path = MakeWebPath(Path.Combine(_webPath, path, directory.Name), true, true),
+                        Path = MakeWebPath(Path.Combine(webPath, path, directory.Name), true, true),
                         Readable = 1,
                         Writable = 1,
                         Created = GetUnixTimestamp(DateTime.Now),
@@ -333,7 +326,7 @@ public class FileManagerController : BaseAdminController
                 continue;
             }
 
-            var fileExist = System.IO.File.Exists(Path.Combine(_webRootPath, path, file.FileName));
+            var fileExist = System.IO.File.Exists(Path.Combine(webRootPath, path, file.FileName));
             if (fileExist)
             {
                 var errorResult = new { Errors = new List<dynamic>() };
@@ -351,7 +344,7 @@ public class FileManagerController : BaseAdminController
                 return errorResult;
             }
 
-            using (var fileStream = new FileStream(Path.Combine(_webRootPath, path, file.FileName), FileMode.Create))
+            using (var fileStream = new FileStream(Path.Combine(webRootPath, path, file.FileName), FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }
@@ -364,7 +357,7 @@ public class FileManagerController : BaseAdminController
                 {
                     Name = file.FileName,
                     Extension = Path.GetExtension(file.FileName).Replace(".", ""),
-                    Path = MakeWebPath(Path.Combine(_webPath, path, file.FileName), true),
+                    Path = MakeWebPath(Path.Combine(webPath, path, file.FileName), true),
                     Readable = 1,
                     Writable = 1,
                     Created = GetUnixTimestamp(DateTime.Now),
@@ -380,7 +373,7 @@ public class FileManagerController : BaseAdminController
 
     private dynamic Rename(string old, string @new)
     {
-        var oldPath = Path.Combine(_webRootPath, old);
+        var oldPath = Path.Combine(webRootPath, old);
 
         var fileAttributes = System.IO.File.GetAttributes(oldPath);
 
@@ -388,7 +381,7 @@ public class FileManagerController : BaseAdminController
         {
             var oldDirectoryName = Path.GetDirectoryName(old).Split('\\').Last();
             var newDirectoryPath = old.Replace(oldDirectoryName, @new);
-            var newPath = Path.Combine(_webRootPath, newDirectoryPath);
+            var newPath = Path.Combine(webRootPath, newDirectoryPath);
 
             var directoryExist = Directory.Exists(newPath);
 
@@ -439,7 +432,7 @@ public class FileManagerController : BaseAdminController
 
             var oldFileName = Path.GetFileName(old);
             var newFilePath = old.Replace(oldFileName, @new);
-            var newPath = Path.Combine(_webRootPath, newFilePath);
+            var newPath = Path.Combine(webRootPath, newFilePath);
 
             var fileExist = System.IO.File.Exists(newPath);
 
@@ -490,14 +483,14 @@ public class FileManagerController : BaseAdminController
 
     private dynamic Move(string old, string @new)
     {
-        var fileAttributes = System.IO.File.GetAttributes(Path.Combine(_webRootPath, old));
+        var fileAttributes = System.IO.File.GetAttributes(Path.Combine(webRootPath, old));
 
         if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory) //Fixed if the directory is compressed
         {
             var directoryName = Path.GetDirectoryName(old).Split('\\').Last();
             var newDirectoryPath = Path.Combine(@new, directoryName);
-            var oldPath = Path.Combine(_webRootPath, old);
-            var newPath = Path.Combine(_webRootPath, @new, directoryName);
+            var oldPath = Path.Combine(webRootPath, old);
+            var newPath = Path.Combine(webRootPath, @new, directoryName);
 
 
             var directoryExist = Directory.Exists(newPath);
@@ -547,11 +540,11 @@ public class FileManagerController : BaseAdminController
         {
             var fileName = Path.GetFileName(old);
             var newFilePath = Path.Combine(@new, fileName);
-            var oldPath = Path.Combine(_webRootPath, old);
+            var oldPath = Path.Combine(webRootPath, old);
 
             var newPath = @new == "/"
-                ? Path.Combine(_webRootPath, fileName.Replace("/", ""))
-                : Path.Combine(_webRootPath, @new, fileName);
+                ? Path.Combine(webRootPath, fileName.Replace("/", ""))
+                : Path.Combine(webRootPath, @new, fileName);
 
 
             var fileExist = System.IO.File.Exists(newPath);
@@ -602,14 +595,14 @@ public class FileManagerController : BaseAdminController
 
     private dynamic Copy(string source, string target)
     {
-        var fileAttributes = System.IO.File.GetAttributes(Path.Combine(_webRootPath, source));
+        var fileAttributes = System.IO.File.GetAttributes(Path.Combine(webRootPath, source));
 
         if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory) //Fixed if the directory is compressed
         {
             var directoryName = Path.GetDirectoryName(source).Split('\\').Last();
             var newDirectoryPath = Path.Combine(target, directoryName);
-            var oldPath = Path.Combine(_webRootPath, source);
-            var newPath = Path.Combine(_webRootPath, target, directoryName);
+            var oldPath = Path.Combine(webRootPath, source);
+            var newPath = Path.Combine(webRootPath, target, directoryName);
 
 
             var directoryExist = Directory.Exists(newPath);
@@ -659,8 +652,8 @@ public class FileManagerController : BaseAdminController
         {
             var fileName = Path.GetFileName(source);
             var newFilePath = Path.Combine(@target, fileName);
-            var oldPath = Path.Combine(_webRootPath, source);
-            var newPath = Path.Combine(_webRootPath, target, fileName);
+            var oldPath = Path.Combine(webRootPath, source);
+            var newPath = Path.Combine(webRootPath, target, fileName);
 
             var fileExist = System.IO.File.Exists(newPath);
 
@@ -712,7 +705,7 @@ public class FileManagerController : BaseAdminController
 
     private dynamic SaveFile(string path, string content)
     {
-        var filePath = Path.Combine(_webRootPath, path);
+        var filePath = Path.Combine(webRootPath, path);
 
         System.IO.File.WriteAllText(filePath, content);
 
@@ -740,13 +733,13 @@ public class FileManagerController : BaseAdminController
 
     private dynamic Delete(string path)
     {
-        var fileAttributes = System.IO.File.GetAttributes(Path.Combine(_webRootPath, path));
+        var fileAttributes = System.IO.File.GetAttributes(Path.Combine(webRootPath, path));
 
         if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory) //Fixed if the directory is compressed
         {
             var directoryName = Path.GetDirectoryName(path).Split('\\').Last();
 
-            Directory.Delete(Path.Combine(_webRootPath, path), true);
+            Directory.Delete(Path.Combine(webRootPath, path), true);
 
             var result = new
             {
@@ -771,10 +764,10 @@ public class FileManagerController : BaseAdminController
         }
         else
         {
-            var fileName = Path.GetFileName(Path.Combine(_webRootPath, path));
+            var fileName = Path.GetFileName(Path.Combine(webRootPath, path));
             var fileExtension = Path.GetExtension(fileName).Replace(".", "");
 
-            System.IO.File.Delete(Path.Combine(_webRootPath, path));
+            System.IO.File.Delete(Path.Combine(webRootPath, path));
 
             var result = new
             {
@@ -801,7 +794,7 @@ public class FileManagerController : BaseAdminController
 
     private dynamic ReadFile(string path)
     {
-        var filePath = Path.Combine(_webRootPath, path);
+        var filePath = Path.Combine(webRootPath, path);
         var fileName = Path.GetFileName(filePath);
         var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
@@ -817,7 +810,7 @@ public class FileManagerController : BaseAdminController
 
     private IActionResult GetImage(string path)
     {
-        var filePath = Path.Combine(_webRootPath, path);
+        var filePath = Path.Combine(webRootPath, path);
         var fileName = Path.GetFileName(filePath);
         var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
@@ -833,7 +826,7 @@ public class FileManagerController : BaseAdminController
 
     private dynamic Download(string path)
     {
-        var filePath = Path.Combine(_webRootPath, path);
+        var filePath = Path.Combine(webRootPath, path);
         var fileName = Path.GetFileName(filePath);
         var fileBytes = System.IO.File.ReadAllBytes(filePath);
 
@@ -843,10 +836,10 @@ public class FileManagerController : BaseAdminController
     private dynamic Summarize()
     {
         // Get Dir count
-        var directories = Directory.GetDirectories(_webRootPath, "*", SearchOption.AllDirectories).Length;
+        var directories = Directory.GetDirectories(webRootPath, "*", SearchOption.AllDirectories).Length;
 
         // Get file count
-        var directoryInfo = new DirectoryInfo(_webRootPath);
+        var directoryInfo = new DirectoryInfo(webRootPath);
         var files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
 
         // Get combined file sizes

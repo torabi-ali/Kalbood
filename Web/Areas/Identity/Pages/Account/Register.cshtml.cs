@@ -67,7 +67,7 @@ public class RegisterModel(
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmail",
                     pageHandler: null,
-                    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                    values: new { area = "Identity", userId = user.Id, code, returnUrl },
                     protocol: Request.Scheme);
 
                 await emailSender.SendEmailAsync(Input.Email, "Confirm your email",
@@ -75,7 +75,7 @@ public class RegisterModel(
 
                 if (userManager.Options.SignIn.RequireConfirmedAccount)
                 {
-                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                    return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
                 }
                 else
                 {

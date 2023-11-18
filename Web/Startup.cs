@@ -65,10 +65,7 @@ public class Startup(IConfiguration configuration)
             options.Providers.Add<BrotliCompressionProvider>();
         });
 
-        services.AddWebEncoders(o =>
-        {
-            o.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
-        });
+        services.AddWebEncoders(o => o.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All));
 
         services.AddOutputCache(options =>
         {
