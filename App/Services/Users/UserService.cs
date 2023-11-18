@@ -19,7 +19,7 @@ public class UserService(KalboodDbContext dbContext) : IUserService
 
         if (roleName != null)
         {
-            query = query.Where(p => p.Role.Name.Equals("Admin", StringComparison.Ordinal));
+            query = query.Where(p => p.Role.Name.Equals("Admin"));
         }
 
         var result = from q in query

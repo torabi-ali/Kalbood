@@ -19,7 +19,7 @@ public class UrlHistoryService(KalboodDbContext dbContext, IMapper mapper) : IUr
     public Task<UrlHistoryDetailDto> GetByUrlAsync(string url)
     {
         return dbContext.Set<UrlHistory>()
-            .Where(p => p.OldUrl.Equals(url, StringComparison.Ordinal))
+            .Where(p => p.OldUrl.Equals(url))
             .ProjectTo<UrlHistoryDetailDto>(mapper.ConfigurationProvider)
             .SingleOrDefaultAsync();
     }

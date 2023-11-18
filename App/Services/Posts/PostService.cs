@@ -23,7 +23,7 @@ public class PostService(KalboodDbContext dbContext, IMapper mapper) : IPostServ
     {
         return dbContext.Set<Post>()
             .Where(p => p.IsPublished)
-            .Where(p => p.Url.Equals(url, StringComparison.Ordinal))
+            .Where(p => p.Url.Equals(url))
             .ProjectTo<PostDetailDto>(mapper.ConfigurationProvider)
             .SingleOrDefaultAsync();
     }

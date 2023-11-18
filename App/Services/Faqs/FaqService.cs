@@ -19,7 +19,7 @@ public class FaqService(KalboodDbContext dbContext, IMapper mapper) : IFaqServic
     public Task<List<FaqDetailDto>> GetByUrlAsync(string url)
     {
         return dbContext.Set<Faq>()
-            .Where(p => p.Url.Equals(url, StringComparison.Ordinal))
+            .Where(p => p.Url.Equals(url))
             .OrderBy(p => p.DisplayOrder)
             .ThenByDescending(p => p.CreatedOn)
             .ProjectTo<FaqDetailDto>(mapper.ConfigurationProvider)

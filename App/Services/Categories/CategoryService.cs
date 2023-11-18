@@ -20,7 +20,7 @@ public class CategoryService(KalboodDbContext dbContext, IMapper mapper) : ICate
 
     public Task<CategoryDetailDto> GetByUrlAsync(string url)
     {
-        return dbContext.Set<Category>().Where(p => p.Url.Equals(url, StringComparison.Ordinal)).ProjectTo<CategoryDetailDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
+        return dbContext.Set<Category>().Where(p => p.Url.Equals(url)).ProjectTo<CategoryDetailDto>(mapper.ConfigurationProvider).SingleOrDefaultAsync();
     }
 
     public Task<IPagedList<CategoryListDto>> GetAllPagedAsync(int pageIndex, int pageSize, bool onlyPinned = false)
