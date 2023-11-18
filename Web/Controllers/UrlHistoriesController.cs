@@ -11,7 +11,7 @@ public class UrlHistoriesController(IUrlHistoryService urlHistoryService) : Cont
     [OutputCache(NoStore = true)]
     public async Task<IActionResult> CatchAll(string url)
     {
-        var trimmedUrl = $"/{url.ToLower().TrimStart('/')}";
+        var trimmedUrl = $"/{url.ToLowerInvariant().TrimStart('/')}";
         var urlHistory = await urlHistoryService.GetByUrlAsync(trimmedUrl);
 
         if (urlHistory is null)

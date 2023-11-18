@@ -1,4 +1,4 @@
-﻿using App.Services.Categories;
+using App.Services.Categories;
 using App.Services.Posts;
 using App.ViewModels.Home;
 using App.ViewModels.Settings;
@@ -7,19 +7,8 @@ using System.Xml.Linq;
 
 namespace App.Services.Home;
 
-public class SitemapService : ISitemapService
+public class SitemapService(IPostService postService, ICategoryService categoryService, IApplicationSettings applicationSettings) : ISitemapService
 {
-    private readonly IPostService _postService;
-    private readonly ICategoryService _categoryService;
-    private readonly IApplicationSettings _applicationSettings;
-
-    public SitemapService(IPostService postService, ICategoryService categoryService, IApplicationSettings applicationSettings)
-    {
-        _postService = postService;
-        _categoryService = categoryService;
-        _applicationSettings = applicationSettings;
-    }
-
     public async Task<string> PrepareSitemapModelAsync()
     {
         var xNamespace = (XNamespace)"http://www.sitemaps.org/schemas/sitemap/0.9";
@@ -28,8 +17,8 @@ public class SitemapService : ISitemapService
         xElement.Add(CreateElement(xNamespace, string.Empty, DateTime.Today, SitemapFrequency.Always, 1.0)); // Base site address
 
         var sitemapNodes = new List<SitemapNode>();
-        sitemapNodes.AddRange(await _categoryService.GetSitemapNodeAsync());
-        sitemapNodes.AddRange(await _postService.GetSitemapNodeAsync());
+        sitemapNodes.AddRange(await categoryService.GetSitemapNodeAsync());
+        sitemapNodes.AddRange(await postService.GetSitemapNodeAsync());
 
         foreach (var sitemapNode in sitemapNodes)
         {
@@ -46,7 +35,7 @@ public class SitemapService : ISitemapService
     {
         var element =
             new XElement(xNamespace + "url",
-            new XElement(xNamespace + "loc", new Uri($"{_applicationSettings.Url}{objectUrl}")),
+            new XElement(xNamespace + "loc", new Uri($"{applicationSettings.Url}{objectUrl}")),
             new XElement(xNamespace + "lastmod", lastModified.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz")),
             new XElement(xNamespace + "changefreq", frequency.ToString().ToLowerInvariant()),
             new XElement(xNamespace + "priority", priority.ToString("F2", CultureInfo.InvariantCulture)));

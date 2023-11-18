@@ -1,4 +1,4 @@
-﻿using Data.Utility;
+using Data.Utility;
 
 namespace Web.Extensions;
 
@@ -15,7 +15,7 @@ public static class FileExtension
             return null;
         }
 
-        if (!AllowedExtentions.Contains(Path.GetExtension(file.FileName).ToLower()))
+        if (!AllowedExtentions.Contains(Path.GetExtension(file.FileName).ToLowerInvariant()))
         {
             throw new ArgumentException("File extentions is not allowed.");
         }

@@ -19,8 +19,6 @@ public class CategoriesController(ICategoryService categoryService) : BaseApiCon
     [OutputCache(PolicyName = "ExpireIn300s")]
     public async Task<CategoryDetailDto> Get(string url)
     {
-        var category = await categoryService.GetByUrlAsync(url) ?? throw new Exception("Not found");
-
-        return category;
+        return await categoryService.GetByUrlAsync(url) ?? throw new Exception("Not found");
     }
 }

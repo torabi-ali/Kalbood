@@ -98,7 +98,7 @@ public static class StringUtility
         }
 
         var trimedName = filename
-            .ToLower()
+            .ToLowerInvariant()
             .CleanString()
             .Replace(' ', '-')
             .Replace('‌', '-')
@@ -144,7 +144,7 @@ public static class StringUtility
         }
 
         var trimedName = input
-            .ToLower()
+            .ToLowerInvariant()
             .CleanString()
             .Replace(' ', '-')
             .Replace('‌', '-')

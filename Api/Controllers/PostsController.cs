@@ -19,8 +19,6 @@ public class PostsController(IPostService postService) : BaseApiController
     [OutputCache(PolicyName = "ExpireIn300s")]
     public async Task<PostDetailDto> Get(string url)
     {
-        var post = await postService.GetByUrlAsync(url) ?? throw new Exception("Not found");
-
-        return post;
+        return await postService.GetByUrlAsync(url) ?? throw new Exception("Not found");
     }
 }
