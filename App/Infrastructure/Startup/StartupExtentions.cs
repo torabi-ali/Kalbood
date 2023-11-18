@@ -1,4 +1,5 @@
-﻿using App.Services.Categories;
+﻿using System.Reflection;
+using App.Services.Categories;
 using App.Services.Faqs;
 using App.Services.Home;
 using App.Services.Menus;
@@ -7,7 +8,6 @@ using App.Services.Urls;
 using App.Services.Users;
 using App.ViewModels.Settings;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace App.Infrastructure.Startup;
 

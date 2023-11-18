@@ -1,5 +1,5 @@
-﻿using Data.Utility;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Data.Utility;
 
 namespace App.ViewModels.Common;
 

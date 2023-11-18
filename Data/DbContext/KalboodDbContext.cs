@@ -1,10 +1,10 @@
+using System.Reflection;
 using Data.Domain.Common;
 using Data.Extensions;
 using Data.Utility;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace Data.DbContext;
 

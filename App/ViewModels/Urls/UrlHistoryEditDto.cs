@@ -1,5 +1,5 @@
-﻿using App.ViewModels.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using App.ViewModels.Common;
 
 namespace App.ViewModels.Urls;
 

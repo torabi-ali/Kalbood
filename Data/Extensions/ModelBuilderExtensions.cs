@@ -1,9 +1,9 @@
-﻿using Data.Domain.Common;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 using System.Reflection;
+using Data.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Data.Extensions;
 

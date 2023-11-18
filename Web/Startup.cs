@@ -1,3 +1,6 @@
+using System.Globalization;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using App.Infrastructure.Startup;
 using Data.DbContext;
 using Microsoft.AspNetCore.DataProtection;
@@ -5,9 +8,6 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
 
 namespace Web;
 

@@ -1,9 +1,9 @@
+using System.Globalization;
+using System.Xml.Linq;
 using App.Services.Categories;
 using App.Services.Posts;
 using App.ViewModels.Home;
 using App.ViewModels.Settings;
-using System.Globalization;
-using System.Xml.Linq;
 
 namespace App.Services.Home;
 
