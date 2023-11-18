@@ -19,10 +19,7 @@ public partial class AddUrlHistory : Migration
                 HttpStatus = table.Column<int>(type: "int", nullable: false),
                 CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_UrlHistory", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_UrlHistory", x => x.Id));
 
         migrationBuilder.CreateIndex(
             name: "IX_UrlHistory_OldUrl",

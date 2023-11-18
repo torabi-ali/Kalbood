@@ -43,10 +43,7 @@ public partial class AddIsPublished : Migration
                 FriendlyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 Xml = table.Column<string>(type: "nvarchar(max)", nullable: true)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_DataProtectionKeys", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_DataProtectionKeys", x => x.Id));
 
         migrationBuilder.CreateIndex(
             name: "IX_Menu_ParentId",

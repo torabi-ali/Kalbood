@@ -17,10 +17,7 @@ public partial class Init : Migration
                 NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                 ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_AspNetRoles", x => x.Id));
 
         migrationBuilder.CreateTable(
             name: "AspNetUsers",
@@ -42,10 +39,7 @@ public partial class Init : Migration
                 LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                 AccessFailedCount = table.Column<int>(type: "int", nullable: false)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_AspNetUsers", x => x.Id));
 
         migrationBuilder.CreateTable(
             name: "Category",
@@ -109,10 +103,7 @@ public partial class Init : Migration
                 Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 ImageUrl = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_Post", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_Post", x => x.Id));
 
         migrationBuilder.CreateTable(
             name: "Tag",
@@ -124,10 +115,7 @@ public partial class Init : Migration
                 Url = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                 CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_Tag", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_Tag", x => x.Id));
 
         migrationBuilder.CreateTable(
             name: "AspNetRoleClaims",

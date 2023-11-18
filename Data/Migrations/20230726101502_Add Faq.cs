@@ -20,10 +20,7 @@ public partial class AddFaq : Migration
                 DisplayOrder = table.Column<int>(type: "int", nullable: false),
                 CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
             },
-            constraints: table =>
-            {
-                table.PrimaryKey("PK_Faq", x => x.Id);
-            });
+            constraints: table => table.PrimaryKey("PK_Faq", x => x.Id));
 
         migrationBuilder.CreateIndex(
             name: "IX_Faq_Url",

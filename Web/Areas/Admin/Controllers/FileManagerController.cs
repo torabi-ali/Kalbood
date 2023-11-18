@@ -177,7 +177,7 @@ public class FileManagerController : BaseAdminController
 
     private dynamic GetInfo(string path)
     {
-        path ??= string.Empty;;
+        path ??= string.Empty;
 
         FileInfo file = new(path);
 

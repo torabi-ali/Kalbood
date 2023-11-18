@@ -61,6 +61,7 @@ end_of_line = lf
 
 # Makefiles
 [Makefile]
+end_of_line = lf
 indent_style = tab
 
 ##########################################
@@ -69,11 +70,7 @@ indent_style = tab
 ##########################################
 
 [*.{cs,csx,cake,vb,vbx}]
-# Default Severity for all .NET Code Style rules below
 end_of_line = crlf
-dotnet_analyzer_diagnostic.severity = warning
-dotnet_diagnostic.CA1310.severity = suggestion
-dotnet_diagnostic.CA1848.severity = suggestion
 
 ##########################################
 # Language Rules
@@ -109,9 +106,7 @@ dotnet_style_prefer_inferred_tuple_names = true:warning
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:warning
 dotnet_style_prefer_auto_properties = true:warning
 dotnet_style_prefer_conditional_expression_over_assignment = false:suggestion
-dotnet_diagnostic.IDE0045.severity = suggestion
 dotnet_style_prefer_conditional_expression_over_return = false:suggestion
-dotnet_diagnostic.IDE0046.severity = suggestion
 dotnet_style_prefer_compound_assignment = true:warning
 dotnet_style_prefer_simplified_interpolation = true:warning
 dotnet_style_prefer_simplified_boolean_expressions = true:warning
@@ -163,7 +158,6 @@ csharp_style_conditional_delegate_call = true:warning
 # Code block preferences
 csharp_prefer_braces = true:warning
 csharp_prefer_simple_using_statement = true:suggestion
-dotnet_diagnostic.IDE0063.severity = suggestion
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:warning
 # Modifier preferences
@@ -176,15 +170,13 @@ csharp_prefer_static_local_function = true:warning
 
 # .NET Unnecessary code rules
 [*.{cs,csx,cake,vb,vbx}]
-dotnet_code_quality_unused_parameters = all:warning
-dotnet_remove_unnecessary_suppression_exclusions = none:warning
+dotnet_code_quality_unused_parameters = non_public:warning
+dotnet_remove_unnecessary_suppression_exclusions = non_public:warning
 
 # C# Unnecessary code rules
 [*.{cs,csx,cake}]
 csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
-dotnet_diagnostic.IDE0058.severity = suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
-dotnet_diagnostic.IDE0059.severity = suggestion
 
 ##########################################
 # Formatting Rules
@@ -199,7 +191,6 @@ dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false
 # Dotnet namespace options
 dotnet_style_namespace_match_folder = true:suggestion
-dotnet_diagnostic.IDE0130.severity = suggestion
 
 # C# formatting rules
 # https://docs.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/formatting-rules#c-formatting-rules
