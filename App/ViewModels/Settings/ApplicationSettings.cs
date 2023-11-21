@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace App.ViewModels.Settings;
 
@@ -6,12 +6,12 @@ public record ApplicationSettings : IApplicationSettings
 {
     public ApplicationSettings(IConfiguration configuration)
     {
-        var conf = configuration.GetSection("ApplicationSettings");
+        var config = configuration.GetSection("ApplicationSettings");
 
-        var props = typeof(ApplicationSettings).GetProperties();
-        foreach (var prop in props)
+        var properties = typeof(ApplicationSettings).GetProperties().Where(p => p.CanWrite);
+        foreach (var property in properties)
         {
-            prop.SetValue(this, conf[prop.Name], null);
+            property.SetValue(this, config[property.Name], null);
         }
     }
 
