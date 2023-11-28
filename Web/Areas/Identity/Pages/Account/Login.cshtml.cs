@@ -23,16 +23,15 @@ public class LoginModel(SignInManager<IdentityUser> signInManager, ILogger<Login
     public class InputModel
     {
         [Required]
-        [EmailAddress]
         [Display(Name = "نام کاربری (ایمیل یا شماره تلفن)")]
-        public string Email { get; set; }
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "رمز عبور")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "مرا به خاطر بسپار؟")]
         public bool RememberMe => true;
     }
 
@@ -63,15 +62,11 @@ public class LoginModel(SignInManager<IdentityUser> signInManager, ILogger<Login
         {
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+            var result = await signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 logger.LogInformation("User logged in.");
                 return LocalRedirect(returnUrl);
-            }
-            if (result.RequiresTwoFactor)
-            {
-                return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
             }
             if (result.IsLockedOut)
             {
