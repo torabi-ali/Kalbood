@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="appsettings.Template.Production.json">
+        <Content Update="appsettings.Template.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
