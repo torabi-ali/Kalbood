@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Version>2.6.0.1</Version>
+        <Version>2.6.0.2</Version>
         <Authors>Ali Torabi</Authors>
         <PackageIcon>Logo.png</PackageIcon>
         <RepositoryType>Git</RepositoryType>
