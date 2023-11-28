@@ -1,4 +1,4 @@
-﻿@using App.ViewModels.Menus;
+@using App.ViewModels.Menus;
 
 @model IList<MenuListDto>
 
@@ -68,11 +68,11 @@
     <div class="d-table-cell w-100 align-middle pl-md-3">
         <div class="navbar-top d-none d-lg-flex justify-content-between align-items-center">
             <div>
-                <a class="navbar-link ml-3" href="#" aria-label="تلفن">
-                    <i class="fe-icon-phone"></i>@settings.Phone
+                <a class="navbar-link ml-3" href="@settings.PhoneLink" aria-label="تلفن">
+                    <i class="fe-icon-phone"></i><span class="ltr-data">@settings.Phone</span>
                 </a>
-                <a class="navbar-link ml-3" href="mailto:@settings.Email" aria-label="ایمیل">
-                    <i class="fe-icon-mail"></i>@settings.Email
+                <a class="navbar-link ml-3" href="@settings.EmailLink" aria-label="ایمیل">
+                    <i class="fe-icon-mail"></i><span class="ltr-data">@settings.Email</span>
                 </a>
                 <a class="social-btn sb-style-3 sb-telegram" target="_blank" href="@settings.Telegram" aria-label="تلگرام"><i class="socicon-telegram"></i></a>
                 <a class="social-btn sb-style-3 sb-whatsapp" target="_blank" href="@settings.Whatsapp" aria-label="واتساپ"><i class="socicon-whatsapp"></i></a>
