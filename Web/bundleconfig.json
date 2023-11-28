@@ -1,92 +1,93 @@
-﻿[
-    {
-        "outputFileName": "wwwroot/dist/site.min.css",
-        "inputFiles": [
-            "wwwroot/css/vendor/feather.css",
-            "wwwroot/css/vendor/iziToast.min.css",
-            "wwwroot/css/vendor/fancybox.min.css",
-            "wwwroot/css/vendor/noUISlider.min.css",
-            "wwwroot/css/vendor/socicon.css",
-            "wwwroot/css/theme.css"
-        ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": true
-        },
-        "sourceMap": false
+[
+  {
+    "outputFileName": "wwwroot/dist/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/vendor/feather.css",
+      "wwwroot/css/vendor/iziToast.min.css",
+      "wwwroot/css/vendor/fancybox.min.css",
+      "wwwroot/css/vendor/noUISlider.min.css",
+      "wwwroot/css/vendor/socicon.css",
+      "wwwroot/css/theme.css",
+      "wwwroot/css/theme-custom.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
     },
-    {
-        "outputFileName": "wwwroot/dist/site.min.js",
-        "inputFiles": [
-            "wwwroot/js/vendor/jquery-3.3.1.min.js",
-            "wwwroot/js/vendor/popper.min.js",
-            "wwwroot/js/vendor/bootstrap.min.js",
-            "wwwroot/js/vendor/imagesloaded.min.js",
-            "wwwroot/js/vendor/isotope.min.js",
-            "wwwroot/js/vendor/iziToast.min.js",
-            "wwwroot/js/vendor/jquery.animateNumber.min.js",
-            "wwwroot/js/vendor/jquery.countdown.min.js",
-            "wwwroot/js/vendor/jquery.fancybox.min.js",
-            "wwwroot/js/vendor/nouislider.min.js",
-            "wwwroot/js/theme.js"
-        ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": true
-        },
-        "sourceMap": false
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/dist/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/vendor/jquery-3.3.1.min.js",
+      "wwwroot/js/vendor/popper.min.js",
+      "wwwroot/js/vendor/bootstrap.min.js",
+      "wwwroot/js/vendor/imagesloaded.min.js",
+      "wwwroot/js/vendor/isotope.min.js",
+      "wwwroot/js/vendor/iziToast.min.js",
+      "wwwroot/js/vendor/jquery.animateNumber.min.js",
+      "wwwroot/js/vendor/jquery.countdown.min.js",
+      "wwwroot/js/vendor/jquery.fancybox.min.js",
+      "wwwroot/js/vendor/nouislider.min.js",
+      "wwwroot/js/theme.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
     },
-    {
-        "outputFileName": "wwwroot/dist/admin.min.css",
-        "inputFiles": [
-            "wwwroot/adminTheme/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
-            "wwwroot/adminTheme/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
-            "wwwroot/adminTheme/dist/css/adminlte.min.css",
-            "wwwroot/adminTheme/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
-            "wwwroot/adminTheme/plugins/daterangepicker/daterangepicker.css",
-            "wwwroot/adminTheme/plugins/summernote/summernote-bs4.min.css",
-            "wwwroot/adminTheme/dist/css/style.css",
-            "wwwroot/lib/select2/css/select2.min.css",
-            "wwwroot/lib/limonte-sweetalert2/sweetalert2.min.css"
-        ],
-        "minify": {
-            "enabled": false,
-            "renameLocals": false
-        },
-        "sourceMap": false
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/dist/admin.min.css",
+    "inputFiles": [
+      "wwwroot/adminTheme/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
+      "wwwroot/adminTheme/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
+      "wwwroot/adminTheme/dist/css/adminlte.min.css",
+      "wwwroot/adminTheme/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
+      "wwwroot/adminTheme/plugins/daterangepicker/daterangepicker.css",
+      "wwwroot/adminTheme/plugins/summernote/summernote-bs4.min.css",
+      "wwwroot/adminTheme/dist/css/style.css",
+      "wwwroot/lib/select2/css/select2.min.css",
+      "wwwroot/lib/limonte-sweetalert2/sweetalert2.min.css"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
     },
-    {
-        "outputFileName": "wwwroot/dist/admin.min.js",
-        "inputFiles": [
-            "wwwroot/adminTheme/plugins/jquery/jquery.min.js",
-            "wwwroot/adminTheme/plugins/jquery-ui/jquery-ui.min.js",
-            "wwwroot/adminTheme/plugins/bootstrap/js/bootstrap.bundle.min.js",
-            "wwwroot/adminTheme/plugins/chart.js/Chart.min.js",
-            "wwwroot/adminTheme/plugins/moment/moment.min.js",
-            "wwwroot/adminTheme/plugins/daterangepicker/daterangepicker.js",
-            "wwwroot/adminTheme/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
-            "wwwroot/adminTheme/plugins/summernote/summernote-bs4.min.js",
-            "wwwroot/adminTheme/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
-            "wwwroot/adminTheme/dist/js/adminlte.js",
-            "wwwroot/lib/select2/js/select2.min.js",
-            "wwwroot/lib/limonte-sweetalert2/sweetalert2.min.js"
-        ],
-        "minify": {
-            "enabled": false,
-            "renameLocals": false
-        },
-        "sourceMap": false
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/dist/admin.min.js",
+    "inputFiles": [
+      "wwwroot/adminTheme/plugins/jquery/jquery.min.js",
+      "wwwroot/adminTheme/plugins/jquery-ui/jquery-ui.min.js",
+      "wwwroot/adminTheme/plugins/bootstrap/js/bootstrap.bundle.min.js",
+      "wwwroot/adminTheme/plugins/chart.js/Chart.min.js",
+      "wwwroot/adminTheme/plugins/moment/moment.min.js",
+      "wwwroot/adminTheme/plugins/daterangepicker/daterangepicker.js",
+      "wwwroot/adminTheme/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
+      "wwwroot/adminTheme/plugins/summernote/summernote-bs4.min.js",
+      "wwwroot/adminTheme/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
+      "wwwroot/adminTheme/dist/js/adminlte.js",
+      "wwwroot/lib/select2/js/select2.min.js",
+      "wwwroot/lib/limonte-sweetalert2/sweetalert2.min.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
     },
-    {
-        "outputFileName": "wwwroot/dist/jquery.validate.js",
-        "inputFiles": [
-            "wwwroot/lib/jquery-validate/jquery.validate.js",
-            "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
-        ],
-        "minify": {
-            "enabled": false,
-            "renameLocals": false
-        },
-        "sourceMap": false
-    }
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/dist/jquery.validate.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-validate/jquery.validate.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
+    },
+    "sourceMap": false
+  }
 ]
