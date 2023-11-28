@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using App.Services.Categories;
 using App.Services.Faqs;
 using App.Services.Home;
@@ -15,7 +15,7 @@ public static class StartupExtentions
 {
     public static void RegisterServices(this IServiceCollection services)
     {
-        services.AddSingleton<IApplicationSettings, ApplicationSettings>();
+        services.AddSingleton<ApplicationSettings>();
 
         services.AddTransient<ICategoryService, CategoryService>();
         services.AddTransient<IPostService, PostService>();

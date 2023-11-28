@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace App.ViewModels.Settings;
 
-public record ApplicationSettings : IApplicationSettings
+public record ApplicationSettings
 {
     public ApplicationSettings(IConfiguration configuration)
     {
@@ -29,7 +29,11 @@ public record ApplicationSettings : IApplicationSettings
 
     public string Phone { get; set; }
 
+    public string PhoneLink => $"tel:+98{Phone.Replace(" ", string.Empty).TrimStart('0')}";
+
     public string Email { get; set; }
+
+    public string EmailLink => $"mailto:{Email.Replace(" ", string.Empty).Replace("[at]", "@")}";
 
     public string Whatsapp { get; set; }
 

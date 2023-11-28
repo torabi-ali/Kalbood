@@ -7,7 +7,7 @@ using App.ViewModels.Settings;
 
 namespace App.Services.Home;
 
-public class SitemapService(IPostService postService, ICategoryService categoryService, IApplicationSettings applicationSettings) : ISitemapService
+public class SitemapService(IPostService postService, ICategoryService categoryService, ApplicationSettings applicationSettings) : ISitemapService
 {
     public async Task<string> PrepareSitemapModelAsync()
     {
