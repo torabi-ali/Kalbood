@@ -1,6 +1,5 @@
 using App.Services.Categories;
 using App.ViewModels.Categories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Common;
 
 namespace Test.Category;

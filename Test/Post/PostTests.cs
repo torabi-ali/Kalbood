@@ -2,7 +2,6 @@
 using App.Services.Posts;
 using App.ViewModels.Categories;
 using App.ViewModels.Posts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Test.Common;
 
 namespace Test.Post;

@@ -1,7 +1,5 @@
 ﻿using App.Infrastructure.AutoMapper.Profiles;
-using AutoMapper;
 using Data.DbContext;
-using Microsoft.EntityFrameworkCore;
 
 namespace Test.Common;
 
