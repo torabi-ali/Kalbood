@@ -1,3 +1,11 @@
 .navbar-brand > img {
   max-width: 70px;
 }
+
+.blog-card {
+  min-height: 300px;
+}
+
+  .blog-card .card-body {
+    height: 175px;
+  }
