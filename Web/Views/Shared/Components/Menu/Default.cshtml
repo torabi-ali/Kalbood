@@ -20,7 +20,7 @@
             @{
                 var counter = 1;
             }
-            @foreach (var menu in Model)
+            @foreach (var menu in Model.Where(p => !p.ParentId.HasValue))
             {
                 <div class="card">
                     <div class="card-header">
@@ -92,7 +92,7 @@
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" aria-label="صفحه اصلی">صفحه اصلی</a>
                 </li>
 
-                @foreach (var menu in Model)
+                @foreach (var menu in Model.Where(p => !p.ParentId.HasValue))
                 {
                     <li class="nav-item dropdown-toggle">
                         <a class="nav-link" href="@menu.Url" aria-label="@menu.Title">@menu.Title</a>

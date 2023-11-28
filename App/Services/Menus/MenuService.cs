@@ -19,7 +19,7 @@ public class MenuService(KalboodDbContext dbContext, IMapper mapper) : IMenuServ
 
     public Task<IPagedList<MenuListDto>> GetAllPagedAsync(int pageIndex, int pageSize)
     {
-        var query = dbContext.Set<Menu>().Where(p => p.ParentId == null).OrderBy(p => p.DisplayOrder).ThenByDescending(p => p.CreatedOn);
+        var query = dbContext.Set<Menu>().OrderBy(p => p.DisplayOrder).ThenByDescending(p => p.CreatedOn);
 
         return query.ProjectTo<MenuListDto>(mapper.ConfigurationProvider).ToPagedListAsync(pageIndex, pageSize);
     }
