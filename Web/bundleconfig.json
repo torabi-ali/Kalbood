@@ -46,7 +46,6 @@
       "wwwroot/adminTheme/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
       "wwwroot/adminTheme/plugins/daterangepicker/daterangepicker.css",
       "wwwroot/adminTheme/plugins/summernote/summernote-bs4.min.css",
-      "wwwroot/lib/limonte-sweetalert2/sweetalert2.min.css",
       "wwwroot/lib/select2/css/select2.min.css",
       "wwwroot/adminTheme/dist/css/style.css"
     ],
@@ -69,7 +68,6 @@
       "wwwroot/adminTheme/plugins/summernote/summernote-bs4.min.js",
       "wwwroot/adminTheme/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
       "wwwroot/lib/select2/js/select2.min.js",
-      "wwwroot/lib/limonte-sweetalert2/sweetalert2.min.js",
       "wwwroot/adminTheme/dist/js/adminlte.js"
     ],
     "minify": {

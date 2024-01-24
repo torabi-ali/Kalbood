@@ -6,8 +6,6 @@
     var pageTitle = ViewData["Title"] + " | " + settings.Title;
     var pageDescription = ViewData["Description"] ?? settings.Description;
     var pageImage = ViewData["Image"] ?? settings.Logo;
-
-    var version = Assembly.GetEntryAssembly().GetName().Version;
 }
 
 <!DOCTYPE html>
@@ -43,7 +41,7 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="/dist/site.min.css?version=@version">
+    <link rel="stylesheet" href="~/dist/site.min.css" asp-append-version="true" />
 
     <script type="application/ld+json">
         {
@@ -114,7 +112,7 @@
                 <div class="container">
                     <div class="d-md-flex justify-content-between align-items-center py-4 text-center text-md-left">
                         <div class="order-2"><a class="footer-link text-white" href="/posts/کالبود-چیست/" aria-label="درباره ما">درباره ما</a></div>
-                        <p class="m-0 text-sm text-white order-1"><span class='opacity-60'>همه حقوق محفوظ است.©</span> <span>نسخه @version</span></p>
+                        <p class="m-0 text-sm text-white order-1"><span class='opacity-60'>همه حقوق محفوظ است.©</span> <span>نسخه @(Assembly.GetEntryAssembly().GetName().Version)</span></p>
                     </div>
                 </div>
             </div>
@@ -125,7 +123,7 @@
     <!-- Backdrop-->
     <div class="site-backdrop"></div>
 
-    <script type="text/javascript" src="/dist/site.min.js?version=@version"></script>
+    <script type="text/javascript" src="/dist/site.min.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

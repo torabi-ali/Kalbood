@@ -1,64 +1,56 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <Version>2.6.0.3</Version>
-        <Authors>Ali Torabi</Authors>
-        <PackageIcon>Logo.png</PackageIcon>
-        <RepositoryType>Git</RepositoryType>
-        <Copyright>Copyright © Kalbood.ir</Copyright>
-        <AssemblyName>Kalbood</AssemblyName>
-        <RepositoryUrl>https://github.com/torabi-ali/Kalbood</RepositoryUrl>
-        <Description>Kalbood is a web application developed exclusively for Kalbood studio.</Description>
-    </PropertyGroup>
+  <PropertyGroup>
+    <Version>2.6.1.0</Version>
+    <Authors>Ali Torabi</Authors>
+    <PackageIcon>Logo.png</PackageIcon>
+    <RepositoryType>Git</RepositoryType>
+    <Copyright>Copyright © Kalbood.ir</Copyright>
+    <AssemblyName>Kalbood</AssemblyName>
+    <RepositoryUrl>https://github.com/torabi-ali/Kalbood</RepositoryUrl>
+    <Description>Kalbood is a web application developed exclusively for Kalbood studio.</Description>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1" PrivateAssets="all" TreatAsUsed="true" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1" PrivateAssets="all" TreatAsUsed="true" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="wwwroot\uploads\" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App\App.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\App\App.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Content Update="appsettings.Template.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </Content>
-        <Content Update="appsettings.Development.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </Content>
-        <Content Update="appsettings.Production.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        </Content>
-        <Content Update="wwwroot/js/**">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </Content>
-        <Content Update="wwwroot/css/**">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </Content>
-        <Content Update="wwwroot/lib/**">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </Content>
-        <Content Update="wwwroot/adminTheme/**">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        </Content>
-    </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings.Template.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot/js/**">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot/css/**">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot/lib/**">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot/adminTheme/**">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>
