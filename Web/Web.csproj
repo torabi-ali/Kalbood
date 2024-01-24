@@ -18,8 +18,8 @@
 
     <ItemGroup>
         <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" PrivateAssets="all" TreatAsUsed="true" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1" PrivateAssets="all" TreatAsUsed="true" />
     </ItemGroup>
 
     <ItemGroup>
