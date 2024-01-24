@@ -1,4 +1,7 @@
-﻿@model IBasePagedList
+@using App.ViewModels.Base
+
+@model IBasePagedList
+
 @{
     var previousPageActiveClass = Model.HasPreviousPage ? "" : "disabled";
     var nextPageActiveClass = Model.HasNextPage ? "" : "disabled";
@@ -6,55 +9,55 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <div class="dataTables_paginate paging_simple_numbers" id="table_paginate">
-            <ul class="pagination">
-                <li class="paginate_button page-item previous @(previousPageActiveClass)" id="table_previous">
-                    <a href="#" aria-controls="table" data-dt-idx="0" tabindex="0" class="page-link" aria-label="قبلی">قبلی</a>
-                </li>
+        @if (Model.HasPreviousPage || Model.HasNextPage)
+        {
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(previousPageActiveClass)">
+                        <a asp-route-pageIndex="@(Model.PageIndex - 1)" class="page-link">قبلی</a>
+                    </li>
 
-                @if (Model.PageIndex - 2 > 0)
-                {
-                    <li class="paginate_button page-item">
-                        <a href="#" aria-controls="table" data-dt-idx="1" tabindex="0" class="page-link">@(Model.PageIndex - 2)</a>
-                    </li>
-                }
-                @if (Model.PageIndex - 1 > 0)
-                {
-                    <li class="paginate_button page-item">
-                        <a href="#" aria-controls="table" data-dt-idx="1" tabindex="0" class="page-link">@(Model.PageIndex - 1)</a>
-                    </li>
-                }
+                    @if (Model.PageIndex > 2)
+                    {
+                        <li class="page-item">
+                            <a asp-route-pageIndex="1" class="page-link">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a href="#" class="page-link">...</a>
+                        </li>
+                    }
+                    @if (Model.PageIndex > 1)
+                    {
+                        <li class="page-item">
+                            <a asp-route-pageIndex="@(Model.PageIndex - 1)" class="page-link">@(Model.PageIndex - 1)</a>
+                        </li>
+                    }
 
-                <li class="paginate_button page-item active">
-                    <a href="#" aria-controls="table" data-dt-idx="1" tabindex="0" class="page-link">@(Model.PageIndex)</a>
-                </li>
+                    <li class="page-item active">
+                        <a asp-route-pageIndex="@(Model.PageIndex)" class="page-link">@(Model.PageIndex)</a>
+                    </li>
 
-                @if (Model.PageIndex + 1 < Model.TotalPages)
-                {
-                    <li class="paginate_button page-item">
-                        <a href="#" aria-controls="table" data-dt-idx="1" tabindex="0" class="page-link">@(Model.PageIndex + 1)</a>
+                    @if (Model.TotalPages > Model.PageIndex)
+                    {
+                        <li class="page-item">
+                            <a asp-route-pageIndex="@(Model.PageIndex + 1)" class="page-link">@(Model.PageIndex + 1)</a>
+                        </li>
+                    }
+                    @if (Model.TotalPages > Model.PageIndex + 1)
+                    {
+                        <li class="page-item">
+                            <a href="#" class="page-link">...</a>
+                        </li>
+                        <li class="page-item">
+                            <a asp-route-pageIndex="@(Model.TotalPages)" class="page-link">@(Model.TotalPages)</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(nextPageActiveClass)">
+                        <a asp-route-pageIndex="@(Model.PageIndex + 1)" class="page-link">بعدی</a>
                     </li>
-                }
-                @if (Model.PageIndex + 2 < Model.TotalPages)
-                {
-                    <li class="paginate_button page-item">
-                        <a href="#" aria-controls="table" data-dt-idx="1" tabindex="0" class="page-link">@(Model.PageIndex + 2)</a>
-                    </li>
-                }
-                @if (Model.PageIndex + 3 < Model.TotalPages)
-                {
-                    <li class="paginate_button page-item">
-                        <a href="#" aria-controls="table" class="page-link">...</a>
-                    </li>
-                    <li class="paginate_button page-item">
-                        <a href="#" aria-controls="table" data-dt-idx="1" tabindex="0" class="page-link">@(Model.TotalPages)</a>
-                    </li>
-                }
-                
-                <li class="paginate_button page-item next @(nextPageActiveClass)" id="table_next">
-                    <a href="#" aria-controls="table" data-dt-idx="7" tabindex="0" class="page-link" aria-label="بعدی">بعدی</a>
-                </li>
-            </ul>
-        </div>
+                </ul>
+            </nav>
+        }
     </div>
 </div>
